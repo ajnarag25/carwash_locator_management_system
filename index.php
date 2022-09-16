@@ -1,3 +1,9 @@
+<?php 
+  include('connection.php');
+  session_start();
+
+?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -93,24 +99,24 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                <form class="form-contact contact_form" method="post" action="about.html">
+                <form class="form-contact contact_form" method="post" action="functions.php">
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="">Username</label>
-                                <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Username'" placeholder="Enter Username" required>
+                                <input class="form-control valid" name="username" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Username'" placeholder="Enter Username" required>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="">Password</label>
-                                <input class="form-control" name="subject" id="subject" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Password'" placeholder="Enter Password" required>
+                                <input class="form-control" name="password" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Password'" placeholder="Enter Password" required>
                             </div>
                         </div>
                     </div>
                 </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn btn-primary" name="login">Login</button>
                         <button type="button" class="btn" data-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -176,24 +182,24 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                    <form class="form-contact contact_form" method="post" action="about.html">
+                    <form class="form-contact contact_form" method="post" action="functions.php">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Firstname</label>
-                                    <input class="form-control valid" name="firstname"  type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Firstname'" placeholder="Enter Firstname" required>
+                                    <input class="form-control valid" name="firstname" onkeyup="lettersOnly(this)"  type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Firstname'" placeholder="Enter Firstname" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Lastname</label>
-                                    <input class="form-control valid" name="lastname"  type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Lastname'" placeholder="Enter Lastname" required>
+                                    <input class="form-control valid" name="lastname" onkeyup="lettersOnly(this)"  type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Lastname'" placeholder="Enter Lastname" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Contact no.</label>
-                                    <input class="form-control valid" name="contact"  type="number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Contact no.'" placeholder="Enter Contact no." required>
+                                    <input class="form-control valid" name="contact" id="contact_id"  type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Contact no.'" placeholder="Enter Contact no." required>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -224,7 +230,7 @@
                         </div>
                     </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Signup</button>
+                            <button type="submit" class="btn btn-primary" name="signup">Signup</button>
                             <button type="button" class="btn" data-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -338,7 +344,7 @@
                             <div class="col-xl-12 ">
                                 <div class="footer-copy-right text-center">
                                  <p>
-                                  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <a href="" target="_blank">Carwash Locator Management System</a></p>
+                                  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <a href="#">Carwash Locator Management System</a></p>
                               </div>
                           </div>
                       </div>
@@ -380,6 +386,17 @@
 <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
+<script>
+    function lettersOnly(input) {
+        var regex = /[^a-z]/gi;
+        input.value = input.value.replace(regex, "");
+    }
+</script>
+<script>
+    $("input[id='contact_id']").on('input', function(e) {
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    });
+</script>
 
 </body>
 </html>

@@ -1,3 +1,12 @@
+<?php 
+  include('connection.php');
+  session_start();
+  if (!isset($_SESSION['get_data']['username'])) {
+        header("Location: index.php");
+    }
+?>
+
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -67,7 +76,7 @@
                                                 <li><a href="#services">Services</a></li>
                                                 <li><a href="#">Profile</a></li>
                                                 <li><a href="#contact">Contact</a></li>
-                                                <li><a href="">Logout</a></li>                                      
+                                                <li><a href="functions.php?logout" type="submit" >Logout</a></li>                                      
                                             </ul>
                                         </nav>
                                     </div>
@@ -93,7 +102,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="hero-cap hero-cap2">
-                                    <h2>Welcome User</h2>
+                                    <h2><i class='bx bx-user' style="font-size: 70px; color: rgb(62, 62, 255);"></i> Welcome, <?php echo $_SESSION['get_data']['firstname'] ?> <?php echo $_SESSION['get_data']['lastname'] ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -390,7 +399,7 @@
                             <div class="col-xl-12 ">
                                 <div class="footer-copy-right text-center">
                                  <p>
-                                  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <a href="" target="_blank">Carwash Locator Management System</a></p>
+                                  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <a href="#" >Carwash Locator Management System</a></p>
                               </div>
                           </div>
                       </div>
