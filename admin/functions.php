@@ -1,4 +1,3 @@
-<link href="assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
 <?php
 include('connection.php');
 

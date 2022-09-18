@@ -10,7 +10,7 @@ include('connection.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
     <link href="assets/images/loder.png" rel="icon">
-    <title>Carwash Locator Management System - Users</title>
+    <title>Carwash Locator Management System - Bookings</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin-lite/" />
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <link href="dist/css/style.min.css" rel="stylesheet">
@@ -138,7 +138,7 @@ include('connection.php');
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Registered Users</h4>
+                        <h4 class="page-title">Bookings</h4>
                         <div class="col-lg-10" style="display: inline-flex;">
                             <input type="search" class="form-control rounded"  placeholder="Search" onkeyup="studentSearch()" id="searchStudent" />
                             <span class="input-group-text bg-success text-white"><i class='mdi mdi-magnify'></i></span>
@@ -151,7 +151,7 @@ include('connection.php');
                                     <li class="breadcrumb-item">
                                         <a href="main.php">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Registered Users</li>
+                                    <li class="breadcrumb-item active" aria-current="page">List of Bookings</li>
                                 </ol>
                             </nav>
                         </div>

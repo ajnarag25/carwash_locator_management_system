@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
 <?php 
 include('connection.php');
 session_start();
@@ -147,6 +148,123 @@ if (isset($_POST['signup'])) {
 
 
 
+#ADD CARWASH
+if (isset($_POST['bookCar'])) {
+    $cname = $_POST['carname'];
+    $caddress = $_POST['caraddress'];
+    $ccontact = $_POST['carcontact'];
+    $cemail = $_POST['caremail'];
+
+    if ($cemail != null){
+        $conn->query("INSERT INTO carwash (name, address, contact, email, status, note) 
+        VALUES('$cname','$caddress', '$ccontact', '$cemail','PENDING','NA')") or die($conn->error);
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'success',
+                title: 'Successfully Booked',
+                text: 'We will update your transaction, for the meantime check your transaction to see the status of your booking',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "home.php";
+                    }else{
+                        window.location.href = "home.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'error',
+                title: 'No Data Available',
+                text: 'Something went wrong!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "home.php";
+                    }else{
+                        window.location.href = "home.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }
+
+}
+
+#CANCEL TRANSACTION
+if (isset($_GET['deleteBook'])) {
+    $id = $_GET['deleteBook'];
+    if ($id != null){
+        $conn->query("DELETE FROM carwash WHERE id=$id") or die($conn->error);
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'success',
+                title: 'Successfully Deleted',
+                text: 'Transaction details removed',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "home.php";
+                    }else{
+                        window.location.href = "home.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'error',
+                title: 'No Data Available',
+                text: 'Something went wrong!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "home.php";
+                    }else{
+                        window.location.href = "home.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }
+
+}
 
 
 

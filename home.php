@@ -72,7 +72,7 @@
                                         <nav>
                                             <ul id="navigation">                                                                                          
                                                 <li><a href="home.php">Home</a></li>
-                                                <li><a href="#">Transaction</a></li>
+                                                <li><a href="" data-toggle="modal" data-target="#transaction">Transaction</a></li>
                                                 <li><a href="#services">Services</a></li>
                                                 <li><a href="#">Profile</a></li>
                                                 <li><a href="#contact">Contact</a></li>
@@ -88,6 +88,57 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+          <!-- Modal Transaction-->
+          <div class="modal fade" id="transaction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLabel"> <i class='bx bxs-book-bookmark'></i> Transactions</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Bookings</h3>
+                        <div class="card-body overflow-auto">
+                            <table class="table table-hover">
+                                <thead class="thead-dark">
+                                    <tr>
+                                    <th scope="col">Carwash</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Note</th>
+                                    <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                <?php 
+                                    $get_email = $_SESSION['get_data']['email'];
+                                    $query = "SELECT * FROM carwash WHERE email='$get_email' ";
+                                    $result = mysqli_query($conn, $query);
+                                    while ($row = mysqli_fetch_array($result)) {
+
+                                ?>
+                                    <tr>
+                                    <td><?php echo $row['name']; ?></td>
+                                    <td><?php echo $row['address']?></td>
+                                    <td><?php echo $row['status']; ?></td>
+                                    <td><?php echo $row['note']; ?></td>
+                                    <td>
+                                        <a class="btn btn-danger" style="color:white" href="functions.php?deleteBook=<?php echo $row['id'] ?>">Delete</a>
+                                    </td>
+                                    </tr>
+                                </tbody>
+
+                                <?php }; ?>
+                            </table>
+                        </div>
+                        <h3>Concerns</h3>
+
                 </div>
             </div>
         </div>
@@ -137,7 +188,7 @@
                                     <h3>Longitude: <?php echo $long ?></h3>
                                     <br>
                                     <a href="https://www.google.com/maps/search/car+wash+near+me/" class="btn" target="_blank">View Carwash Near Me</a>
-                                    <a href="" class="btn">Add Carwash</a>
+                                    <a href="" class="btn" data-toggle="modal" data-target="#carwash">Add Carwash</a>
                                 </div>
                             </div>
                         </div>
@@ -145,6 +196,48 @@
                 </div>
             </div>
         </section>
+        <!-- Modal Add Carwash-->
+        <div class="modal fade" id="carwash" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLabel"> <i class='bx bx-car'></i>Add Carwash</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <form class="form-contact contact_form" method="post" action="addcarwash.php">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <p>Please submit all the necessary informations needed <br> make sure you check the nearest carwash in your area.</p>
+                                    <label for="">Complete Name of the Carwash <span style="color:red">*</span></label>
+                                    <input class="form-control valid" name="carName" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'" placeholder="Enter Name" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">Complete Address of Carwash <span style="color:red">*</span></label></label>
+                                    <input class="form-control valid" name="carAddress" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Address'" placeholder="Enter Address" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">Contact Information of Carwash <span style="color:red">*</span> <br> if no available contact please type NA instead</label>
+                                    <input class="form-control" name="carContact" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Contact'" placeholder="Enter Contact" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" name="addCarwash">Add</button>
+                            <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <section class="pricing-card-area fix section-padding30">
             <div class="container">
                 <div class="row justify-content-center">
