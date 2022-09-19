@@ -197,7 +197,12 @@ include('connection.php');
                                     <img src="assets/images/plus.png" width="98" alt="">
                                     <br><br>
                                     <h2 class="card-title">Added Carwash</h2>
-                                    <p>Total Added Carwash</p>
+                                    <?php 
+                                        $sql = "SELECT * FROM system_carwash ";
+                                        $result=mysqli_query($conn, $sql);
+                                        $row = mysqli_num_rows($result);
+                                    ?>
+                                    <p>Total Added Carwash : <?php echo $row; ?></p>
 
                                 </div>
                             </div>
