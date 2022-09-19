@@ -290,62 +290,73 @@
                     </div>
                 </div>
                 <div class="row">
+                    <?php 
+                        $query = "SELECT * FROM system_carwash ";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_array($result)) {
+                    ?>
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
                         <div class="single-card text-center mb-30">
                             <div class="card-top">
-                                <img src="assets/img/gallery/section_bg02.jpg" width="300" alt="">
-                                <h4>Car wash</h4>
+                                <img src="./admin/<?php echo $row['image'] ?>" width="300" alt="">
+                                <h4><?php echo $row['name'] ?></h4>
                             </div>
                             <div class="card-bottom">
-                                <p>Description</p>
-                                <a href="#" class="borders-btn">Check Details</a>
+                                <p><?php echo $row['description'] ?></p>
+                                <a href="#" class="borders-btn" data-toggle="modal" data-target="#carwash<?php echo $row['id'] ?>">Check Details</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
-                        <div class="single-card text-center mb-30">
-                            <div class="card-top">
-                                <img src="assets/img/icon/price1.svg" alt="">
-                                <h4>Detailing</h4>
-                                <p>Starting at</p>
-                            </div>
-                            <div class="card-mid">
-                                <h4>$100.00</h4>
-                            </div>
-                            <div class="card-bottom">
-                                <ul>
-                                    <li>2 TB of space</li>
-                                    <li>unlimited bandwidth</li>
-                                    <li>full backup systems</li>
-                                    <li>free domain</li>
-                                    <li>unlimited database</li>
-                                </ul>
-                                <a href="#" class="borders-btn">Get Started</a>
+
+                      <!-- Modal Add Carwash-->
+                    <div class="modal fade" id="carwash<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title" id="exampleModalLabel"> <i class='bx bx-car'></i><?php echo $row['name'] ?></h1>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                <form class="form-contact contact_form" method="post" action="addcarwash.php">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <p>Complete Address : <?php echo $row['address'] ?></p>
+                                                <p>Contact : <?php echo $row['contact'] ?></p>
+                                                <p>Description : <?php echo $row['description'] ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Select a preferred date <span style="color:red">*</span></label></label>
+                                                <input class="form-control valid" name="carDate" type="date"  required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Select preferred time <span style="color:red">*</span></label></label>
+                                                <input class="form-control valid" name="carTime" type="time"  required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" value="<?php echo $row['name'] ?>" name="carName"> 
+                                        <input type="hidden" value="<?php echo $row['address'] ?>" name="carAddress"> 
+                                        <input type="hidden" value="<?php echo $row['contact'] ?>" name="carContact"> 
+                                        <input type="hidden" value="">
+                                        <button type="submit" class="btn btn-primary" name="addCarwash">Book Now</button>
+                                        <a href="https://www.google.com/maps/search/<?php echo $row['address'] ?>+car+wash" class="btn btn-primary" target="_blank" >Locate</a>
+                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
-                        <div class="single-card text-center mb-30">
-                            <div class="card-top">
-                                <img src="assets/img/icon/price1.svg" alt="">
-                                <h4>Wash & Detailing</h4>
-                                <p>Starting at</p>
-                            </div>
-                            <div class="card-mid">
-                                <h4>$200.00</h4>
-                            </div>
-                            <div class="card-bottom">
-                                <ul>
-                                    <li>2 TB of space</li>
-                                    <li>unlimited bandwidth</li>
-                                    <li>full backup systems</li>
-                                    <li>free domain</li>
-                                    <li>unlimited database</li>
-                                </ul>
-                                <a href="#" class="borders-btn">Get Started</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
+
                 </div>
             </div>
         </section>
@@ -462,7 +473,7 @@
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-email"></i></span>
                         <div class="media-body">
-                            <h3>sample@gmail.com</h3>
+                            <h3>carwashloc2022@gmail.com</h3>
                             <p>Email Address</p>
                         </div>
                     </div>
