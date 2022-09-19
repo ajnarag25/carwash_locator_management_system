@@ -248,6 +248,7 @@
                                         <input type="hidden" value="<?php echo $date ?>" name="cardate">
                                         <input type="hidden" value="<?php echo $time ?>" name="cartime">
                                         <input type="hidden" value="<?php echo $_SESSION['get_data']['email'] ?>" name="caremail">
+                                        <input type="hidden" value="<?php echo $_SESSION['get_data']['firstname'] ?> <?php echo $_SESSION['get_data']['lastname'] ?>" name="carperson">
                                         <a href="home.php" class="btn">Cancel</a>
                                         <button type="submit" class="btn" name="bookCar">Book Now</submit>
                                     </form>

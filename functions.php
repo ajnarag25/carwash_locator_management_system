@@ -150,6 +150,7 @@ if (isset($_POST['signup'])) {
 
 #ADD CARWASH
 if (isset($_POST['bookCar'])) {
+    $cperson = $_POST['carperson'];
     $cname = $_POST['carname'];
     $caddress = $_POST['caraddress'];
     $ccontact = $_POST['carcontact'];
@@ -157,8 +158,8 @@ if (isset($_POST['bookCar'])) {
     $cdate = $_POST['cardate'];
     $ctime = $_POST['cartime'];
     if ($cemail != null){
-        $conn->query("INSERT INTO carwash (name, address, contact, email, date, time,status, note) 
-        VALUES('$cname','$caddress', '$ccontact', '$cemail', '$cdate', '$ctime','PENDING','NA')") or die($conn->error);
+        $conn->query("INSERT INTO carwash (person, name, address, contact, email, date, time,status, note) 
+        VALUES('$cperson','$cname','$caddress', '$ccontact', '$cemail', '$cdate', '$ctime','PENDING','NA')") or die($conn->error);
         ?>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

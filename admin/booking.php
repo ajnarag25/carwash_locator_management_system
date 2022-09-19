@@ -170,6 +170,7 @@ include('connection.php');
                                             <th scope="col">Carwash</th>
                                             <th scope="col">Address</th>
                                             <th scope="col">Contact</th>
+                                            <th scope="col">Date & Time</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Note</th>
                                             <th scope="col">Action</th>
@@ -187,6 +188,7 @@ include('connection.php');
                                             <td><?php echo $row['name']; ?></td>
                                             <td><?php echo $row['address']?></td>
                                             <td><?php echo $row['contact']; ?></td>
+                                            <td><?php echo $row['date']; ?> / <?php echo $row['time']; ?></td>
                                             <td><?php echo $row['status']; ?></td>
                                             <td><?php echo $row['note']; ?></td>
                                             <td>
@@ -215,27 +217,18 @@ include('connection.php');
                                             </div>
                                         </div>
                                         
-                                         <!-- Modal Edit -->
+                                         <!-- Approval Modal -->
                                          <div class="modal fade" id="editModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Edit Details for User: <?php echo $row['firstname'] ?></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Details for User: <?php echo $row['firstname'] ?></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <form action="functions.php" method="POST">
                                                 <div class="modal-body">
-                                                    <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
-                                                    <label for="">Firstname</label>
-                                                    <input type="text" class="form-control" name="fname" value="<?php echo $row['firstname'] ?>">
-                                                    <label for="">Lastname</label>
-                                                    <input type="text" class="form-control" name="lname" value="<?php echo $row['lastname'] ?>">
-                                                    <label for="">Username</label>
-                                                    <input type="text" class="form-control" name="uname" value="<?php echo $row['username'] ?>">
-                                                    <label for="">Contact No.</label>
-                                                    <input type="number" class="form-control" name="contact" value="<?php echo $row['contact'] ?>">
-                                                    <label for="">Email</label>
-                                                    <input type="text" class="form-control" name="mail" value="<?php echo $row['email'] ?>">
+                                                    <h3>Compose Message</h3>
+                                                    <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
