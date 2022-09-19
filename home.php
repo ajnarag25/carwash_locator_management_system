@@ -108,7 +108,6 @@
                                 <thead class="thead-dark">
                                     <tr>
                                     <th scope="col">Carwash</th>
-                                    <th scope="col">Address</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Note</th>
                                     <th scope="col">Action</th>
@@ -125,7 +124,6 @@
                                 ?>
                                     <tr>
                                     <td><?php echo $row['name']; ?></td>
-                                    <td><?php echo $row['address']?></td>
                                     <td><?php echo $row['status']; ?></td>
                                     <td><?php echo $row['note']; ?></td>
                                     <td>

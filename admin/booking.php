@@ -149,7 +149,7 @@ include('connection.php');
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="main.php">Home</a>
+                                        <a href="index.php">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">List of Bookings</li>
                                 </ol>
@@ -167,6 +167,7 @@ include('connection.php');
                                     <table class="table table-hover" id="studentTable">
                                         <thead class="thead-dark">
                                           <tr>
+                                            <th scope="col">Customer Name</th>
                                             <th scope="col">Carwash</th>
                                             <th scope="col">Address</th>
                                             <th scope="col">Contact</th>
@@ -185,6 +186,7 @@ include('connection.php');
 
                                         ?>
                                           <tr>
+                                            <td><?php echo $row['person']; ?></td>
                                             <td><?php echo $row['name']; ?></td>
                                             <td><?php echo $row['address']?></td>
                                             <td><?php echo $row['contact']; ?></td>
@@ -203,15 +205,15 @@ include('connection.php');
                                             <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete User <?php echo $row['firstname'] ?></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete request of user: <?php echo $row['person'] ?></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                <h4>Are you sure you want to delete this user?</h4>
+                                                <h4>Are you sure you want to delete this user request?</h4>
                                                 </div>
                                                 <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <a class="btn btn-danger" style="color:white" href="functions.php?deleteUser=<?php echo $row["id"] ?>">Delete</a>
+                                                <a class="btn btn-danger" style="color:white" href="functions.php?deleteBooking=<?php echo $row["id"] ?>">Delete</a>
                                                 </div>
                                             </div>
                                             </div>
@@ -219,24 +221,33 @@ include('connection.php');
                                         
                                          <!-- Approval Modal -->
                                          <div class="modal fade" id="editModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Details for User: <?php echo $row['firstname'] ?></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form action="functions.php" method="POST">
-                                                <div class="modal-body">
-                                                    <h3>Compose Message</h3>
-                                                    <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h3>Set Approval</h3>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary" name="updateStudent">Save changes</button>
+                                                <form action="functions.php" method="POST">
+                                                    <div class="modal-body">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Set Approval for User: <?php echo $row['person'] ?></h5>
+                                                        <br>
+                                                        <select class="form-select" name="stats" id="" required>
+                                                            <option disabled selected value="">Select status</option>
+                                                            <option value="APPROVED">Approve</option>
+                                                            <option value="DECLINED">Decline</option>
+                                                        </select>
+                                                        <br>
+                                                        <h5>Compose Message</h5>
+                                                        <textarea class="form-control" name="msg" id="" cols="30" rows="5" required></textarea>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="hidden" value="<?php echo $row['email'] ?>" name="emails">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" name="set_approval">Send</button>
+                                                    </div>
+                                                </form>
                                                 </div>
-                                            </form>
                                             </div>
-                                        </div>
                                         </div>
 
                                       
@@ -245,7 +256,7 @@ include('connection.php');
                                       </table>
                                       <br>
                                       <?php 
-                                        $sql = "SELECT * FROM user ";
+                                        $sql = "SELECT * FROM carwash ";
                                         $result=mysqli_query($conn, $sql);
                                         $row = mysqli_num_rows($result);
                                     ?>

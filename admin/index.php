@@ -139,7 +139,7 @@ include('connection.php');
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="#">Home</a>
+                                        <a href="index.php">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                                 </ol>
@@ -178,11 +178,15 @@ include('connection.php');
                                     <img src="assets/images/notepad.png" width="85" alt="">
                                     <br><br>
                                     <h2 class="card-title">Bookings</h2>
-                                    <p>Total Bookings</p>
-                               
+                                    <?php 
+                                        $sql = "SELECT * FROM carwash ";
+                                        $result=mysqli_query($conn, $sql);
+                                        $row = mysqli_num_rows($result);
+                                    ?>
+                                    <p>Total Bookings : <?php echo $row; ?></p>
                                 </div>
                             </div>
-                            <a href="concern.php" class="btn btn-success w-100" style="color:white" >View Bookings</a>   
+                            <a href="booking.php" class="btn btn-success w-100" style="color:white" >View Bookings</a>   
                         </div>
                     </div>
                     <div class="col-lg-3">

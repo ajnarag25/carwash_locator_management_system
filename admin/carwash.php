@@ -10,7 +10,7 @@ include('connection.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
     <link href="assets/images/loder.png" rel="icon">
-    <title>Carwash Locator Management System - Users</title>
+    <title>Carwash Locator Management System - Carwash</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin-lite/" />
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <link href="dist/css/style.min.css" rel="stylesheet">
@@ -138,7 +138,7 @@ include('connection.php');
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Registered Users</h4>
+                        <h4 class="page-title">Carwash</h4>
                         <div class="col-lg-10" style="display: inline-flex;">
                             <input type="search" class="form-control rounded"  placeholder="Search" onkeyup="studentSearch()" id="searchStudent" />
                             <span class="input-group-text bg-success text-white"><i class='mdi mdi-magnify'></i></span>
@@ -151,7 +151,7 @@ include('connection.php');
                                     <li class="breadcrumb-item">
                                         <a href="index.php">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Registered Users</li>
+                                    <li class="breadcrumb-item active" aria-current="page">List of Bookings</li>
                                 </ol>
                             </nav>
                         </div>
@@ -164,33 +164,67 @@ include('connection.php');
                         <div class="card card-body">
                             <div class="container-fluid">
                                 <div class="card-body overflow-auto">
+                                    <button class="btn btn-success" style="color:white" data-bs-toggle="modal" data-bs-target="#carwash">Add Carwash <i class="mdi mdi-plus"></i></button>
+                                    <!-- Add Carwash Modal -->
+                                    <div class="modal fade" id="carwash" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3>Add Carwash</h3>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="functions.php" method="POST"  enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <h5 class="modal-title">This is to add available carwash in the system</h5>
+                                                    <br>
+                                                    <label>Upload Image</label>
+                                                    <input type="file" class="form-control" name="carImage" accept="image/png, image/jpeg" required>
+                                                    <br>
+                                                    <label>Name of Carwash</label>
+                                                    <input type="text" class="form-control" name="carName" required>
+                                                    <br>
+                                                    <label>Complete Address</label>
+                                                    <input type="text" class="form-control" name="carAddress" required>
+                                                    <br>
+                                                    <label>Contact Information</label>
+                                                    <input type="text" class="form-control" name="carContact" required>
+                                                    <br>
+                                                    <label>Description</label>
+                                                    <textarea class="form-control" name="carDescription" id="" cols="30" rows="5" required></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success" style="color:white" name="add_carwash">Add</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <table class="table table-hover" id="studentTable">
                                         <thead class="thead-dark">
                                           <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Firstname</th>
-                                            <th scope="col">Lastname</th>
-                                            <th scope="col">Username</th>
-                                            <th scope="col">Contact no.</th>
-                                            <th scope="col">Email</th>
+                                            <th scope="col">Image</th>
+                                            <th scope="col">Carwash</th>
+                                            <th scope="col">Contact</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Description</th>
                                             <th scope="col">Action</th>
                                           </tr>
                                         </thead>
                                         <tbody>
 
                                         <?php 
-                                            $query = "SELECT * FROM user ";
+                                            $query = "SELECT * FROM system_carwash ";
                                             $result = mysqli_query($conn, $query);
                                             while ($row = mysqli_fetch_array($result)) {
 
                                         ?>
                                           <tr>
-                                            <th><?php echo $row['id']; ?></th>
-                                            <td><?php echo $row['firstname']; ?></td>
-                                            <td><?php echo $row['lastname']?></td>
-                                            <td><?php echo $row['username']; ?></td>
+                                            <td><img src="<?php echo $row['image'] ?>" width="80" alt=""></td>
+                                            <td><?php echo $row['name']; ?></td>
                                             <td><?php echo $row['contact']; ?></td>
-                                            <td><?php echo $row['email']; ?></td>
+                                            <td><?php echo $row['address']; ?></td>
+                                            <td><?php echo $row['description']; ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id'] ?>"> <i class="mdi mdi-pencil"></i></button>
                                                 <button type="button" class="btn btn-danger" style="color:white" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>
@@ -203,49 +237,50 @@ include('connection.php');
                                             <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete User <?php echo $row['firstname'] ?></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Carwash</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                <h4>Are you sure you want to delete this user?</h4>
+                                                <h4>Are you sure you want to delete this carwash?</h4>
                                                 </div>
                                                 <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <a class="btn btn-danger" style="color:white" href="functions.php?deleteUser=<?php echo $row["id"] ?>">Delete</a>
+                                                <a class="btn btn-danger" style="color:white" href="functions.php?deleteCarwash=<?php echo $row["id"] ?>">Delete</a>
                                                 </div>
                                             </div>
                                             </div>
                                         </div>
                                         
-                                         <!-- Modal Edit -->
+                                         <!-- Edit Modal -->
                                          <div class="modal fade" id="editModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Edit Details for User: <?php echo $row['firstname'] ?></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form action="functions.php" method="POST">
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
-                                                    <label for="">Firstname</label>
-                                                    <input type="text" class="form-control" name="fname" value="<?php echo $row['firstname'] ?>">
-                                                    <label for="">Lastname</label>
-                                                    <input type="text" class="form-control" name="lname" value="<?php echo $row['lastname'] ?>">
-                                                    <label for="">Username</label>
-                                                    <input type="text" class="form-control" name="uname" value="<?php echo $row['username'] ?>">
-                                                    <label for="">Contact No.</label>
-                                                    <input type="number" class="form-control" name="contact" value="<?php echo $row['contact'] ?>">
-                                                    <label for="">Email</label>
-                                                    <input type="text" class="form-control" name="mail" value="<?php echo $row['email'] ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h3>Edit Carwash Details</h3>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary" name="updateStudent">Save changes</button>
+                                                <form action="functions.php" method="POST">
+                                                    <div class="modal-body">
+                                                        <label for="">Carwash</label>
+                                                        <input class="form-control" type="text" name="carwash" value="<?php echo $row['name']; ?>">
+                                                        <br>
+                                                        <label for="">Contact</label>
+                                                        <input class="form-control" type="text" name="contact" value="<?php echo $row['contact']; ?>">
+                                                        <br>
+                                                        <label for="">Address</label>
+                                                        <input class="form-control" type="text" name="address" value="<?php echo $row['address']; ?>">
+                                                        <br>
+                                                        <label for="">Description</label>
+                                                        <textarea class="form-control" name="description" value="<?php echo $row['description']; ?>" id="" cols="30" rows="5"><?php echo $row['description']; ?></textarea>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="hidden" value="<?php echo $row['id']; ?>" name="id_carwash">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" name="update_carwash">Update</button>
+                                                    </div>
+                                                </form>
                                                 </div>
-                                            </form>
                                             </div>
-                                        </div>
                                         </div>
 
                                       
@@ -254,7 +289,7 @@ include('connection.php');
                                       </table>
                                       <br>
                                       <?php 
-                                        $sql = "SELECT * FROM user ";
+                                        $sql = "SELECT * FROM system_carwash ";
                                         $result=mysqli_query($conn, $sql);
                                         $row = mysqli_num_rows($result);
                                     ?>

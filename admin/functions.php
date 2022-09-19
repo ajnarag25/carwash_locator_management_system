@@ -1,3 +1,4 @@
+<link href="dist/css/style.min.css" rel="stylesheet">
 <?php
 include('connection.php');
 
@@ -70,8 +71,213 @@ if (isset($_POST['updateAdmin'])) {
         header("Location: ../index.php");
     }
 
+}
 
+// set approval for bookings
+if (isset($_POST['set_approval'])) {
+    $status = $_POST['stats'];
+    $messages = $_POST['msg'];
+    $emails = $_POST['emails'];
 
+    if ($emails != null){
+        $conn->query("UPDATE carwash SET status='$status', note='$messages' WHERE email='$emails'") or die($conn->error);
+        include 'send_email_booking.php';
+        ?>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'success',
+                title: 'Successfully sent',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "booking.php";
+                    }else{
+                        window.location.href = "booking.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }else{
+
+    }
+
+}
+
+// delete bookings
+if (isset($_GET['deleteBooking'])) {
+    $id = $_GET['deleteBooking'];
+    $conn->query("DELETE FROM carwash WHERE id=$id") or die($conn->error);
+    header("Location: booking.php");
+}
+
+// add carwash
+if (isset($_POST['add_carwash'])){
+    $names = $_POST['carName'];
+    $address = $_POST['carAddress'];
+    $contacts = $_POST['carContact'];
+    $descriptions = $_POST['carDescription'];
+
+    $target_dir = "uploads/";
+    
+    $target_file = $target_dir . time(). basename($_FILES["carImage"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    $check = getimagesize($_FILES["carImage"]["tmp_name"]);
+
+    $sql = "SELECT * FROM system_carwash WHERE name='$names' AND address='$address' ";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result->num_rows > 0){
+        move_uploaded_file($_FILES["carImage"]["tmp_name"], $target_file);
+        if ($check == false ){
+            ?>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function(){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Uploaded file is not an image!',
+                    text: 'Please upload an image format',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Okay'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "carwash.php";
+                        }else{
+                            window.location.href = "carwash.php";
+                        }
+                    })
+                    
+                })
+        
+            </script>
+            <?php
+        }else{
+            $conn->query("INSERT INTO system_carwash (image, name, contact, address, description) 
+            VALUES('$target_file','$names','$contacts', '$address', '$descriptions')") or die($conn->error);
+              ?>
+              <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+              <script>
+                  $(document).ready(function(){
+                      Swal.fire({
+                      icon: 'success',
+                      title: 'Successfully Added',
+                      confirmButtonColor: '#3085d6',
+                      confirmButtonText: 'Okay'
+                      }).then((result) => {
+                      if (result.isConfirmed) {
+                          window.location.href = "carwash.php";
+                          }else{
+                              window.location.href = "carwash.php";
+                          }
+                      })
+                      
+                  })
+          
+              </script>
+              <?php
+        }
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'warning',
+                title: 'Carwash already existed',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "carwash.php";
+                    }else{
+                        window.location.href = "carwash.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+    <?php
+    }
+}
+
+// update carwash
+if (isset($_POST['update_carwash'])){
+    $id = $_POST['id_carwash'];
+    $car = $_POST['carwash'];
+    $contact = $_POST['contact'];
+    $address = $_POST['address'];
+    $desc = $_POST['description'];
+
+    if ($id != null){
+        $conn->query("UPDATE system_carwash SET name='$car', contact='$contact', address='$address', description='$desc' WHERE id='$id'") or die($conn->error);
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'success',
+                title: 'Successfully Updated',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "carwash.php";
+                    }else{
+                        window.location.href = "carwash.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'error',
+                title: 'No available data',
+                text: 'Somthing went wrong',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "carwash.php";
+                    }else{
+                        window.location.href = "carwash.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }
+
+}
+
+// delete carwash
+if (isset($_GET['deleteCarwash'])) {
+    $id = $_GET['deleteCarwash'];
+    $conn->query("DELETE FROM system_carwash WHERE id=$id") or die($conn->error);
+    header("Location: carwash.php");
 }
 
 ?>
