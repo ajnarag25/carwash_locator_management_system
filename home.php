@@ -254,6 +254,18 @@
                                     <input class="form-control valid" name="carAddress" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Address'" placeholder="Enter Address" required>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Select a preferred date <span style="color:red">*</span></label></label>
+                                    <input class="form-control valid" name="carDate" type="date"  required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Select preferred time <span style="color:red">*</span></label></label>
+                                    <input class="form-control valid" name="carTime" type="time"  required>
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Contact Information of Carwash <span style="color:red">*</span> <br> if no available contact please type NA instead</label>

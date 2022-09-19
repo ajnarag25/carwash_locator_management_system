@@ -196,12 +196,18 @@
                                                         $name = $_POST['carName']; 
                                                         $address = $_POST['carAddress'];
                                                         $contact = $_POST['carContact'];
+                                                        $date = $_POST['carDate'];
+                                                        $time = $_POST['carTime'];
                                                         echo"
                                                         <h3>Carwash: $name</h3>
                                                         <br>
                                                         <h3>Address: $address</h3>
                                                         <br>
                                                         <h3>Contact: $contact</h3>
+                                                        <br>
+                                                        <h3>Date: $date</h3>
+                                                        <br>
+                                                        <h3>Time: $time</h3>
                                                         ";
                                                     }else{
                                                         echo '<h2 class="mb-30">No Available Data!</h2>';
@@ -239,6 +245,8 @@
                                         <input type="hidden" value="<?php echo $name ?>" name="carname">
                                         <input type="hidden" value="<?php echo $address ?>" name="caraddress">
                                         <input type="hidden" value="<?php echo $contact ?>" name="carcontact">
+                                        <input type="hidden" value="<?php echo $date ?>" name="cardate">
+                                        <input type="hidden" value="<?php echo $time ?>" name="cartime">
                                         <input type="hidden" value="<?php echo $_SESSION['get_data']['email'] ?>" name="caremail">
                                         <a href="home.php" class="btn">Cancel</a>
                                         <button type="submit" class="btn" name="bookCar">Book Now</submit>

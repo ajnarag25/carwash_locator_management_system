@@ -167,30 +167,28 @@ include('connection.php');
                                     <table class="table table-hover" id="studentTable">
                                         <thead class="thead-dark">
                                           <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Firstname</th>
-                                            <th scope="col">Lastname</th>
-                                            <th scope="col">Username</th>
-                                            <th scope="col">Contact no.</th>
-                                            <th scope="col">Email</th>
+                                            <th scope="col">Carwash</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Contact</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Note</th>
                                             <th scope="col">Action</th>
                                           </tr>
                                         </thead>
                                         <tbody>
 
                                         <?php 
-                                            $query = "SELECT * FROM user ";
+                                            $query = "SELECT * FROM carwash ";
                                             $result = mysqli_query($conn, $query);
                                             while ($row = mysqli_fetch_array($result)) {
 
                                         ?>
                                           <tr>
-                                            <th><?php echo $row['id']; ?></th>
-                                            <td><?php echo $row['firstname']; ?></td>
-                                            <td><?php echo $row['lastname']?></td>
-                                            <td><?php echo $row['username']; ?></td>
+                                            <td><?php echo $row['name']; ?></td>
+                                            <td><?php echo $row['address']?></td>
                                             <td><?php echo $row['contact']; ?></td>
-                                            <td><?php echo $row['email']; ?></td>
+                                            <td><?php echo $row['status']; ?></td>
+                                            <td><?php echo $row['note']; ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id'] ?>"> <i class="mdi mdi-pencil"></i></button>
                                                 <button type="button" class="btn btn-danger" style="color:white" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>

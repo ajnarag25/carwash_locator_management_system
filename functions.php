@@ -154,10 +154,11 @@ if (isset($_POST['bookCar'])) {
     $caddress = $_POST['caraddress'];
     $ccontact = $_POST['carcontact'];
     $cemail = $_POST['caremail'];
-
+    $cdate = $_POST['cardate'];
+    $ctime = $_POST['cartime'];
     if ($cemail != null){
-        $conn->query("INSERT INTO carwash (name, address, contact, email, status, note) 
-        VALUES('$cname','$caddress', '$ccontact', '$cemail','PENDING','NA')") or die($conn->error);
+        $conn->query("INSERT INTO carwash (name, address, contact, email, date, time,status, note) 
+        VALUES('$cname','$caddress', '$ccontact', '$cemail', '$cdate', '$ctime','PENDING','NA')") or die($conn->error);
         ?>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
