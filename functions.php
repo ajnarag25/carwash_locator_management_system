@@ -209,7 +209,7 @@ if (isset($_POST['bookCar'])) {
 
 }
 
-#CANCEL TRANSACTION
+#DELETE TRANSACTION
 if (isset($_GET['deleteBook'])) {
     $id = $_GET['deleteBook'];
     if ($id != null){
@@ -265,7 +265,184 @@ if (isset($_GET['deleteBook'])) {
     }
 
 }
+if (isset($_GET['deleteConcern'])) {
+    $id = $_GET['deleteConcern'];
+    if ($id != null){
+        $conn->query("DELETE FROM concern WHERE id=$id") or die($conn->error);
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'success',
+                title: 'Successfully Deleted',
+                text: 'Transaction details removed',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "home.php";
+                    }else{
+                        window.location.href = "home.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
 
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'error',
+                title: 'No Data Available',
+                text: 'Something went wrong!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "home.php";
+                    }else{
+                        window.location.href = "home.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }
+
+}
+
+#CONCERN SUBMISSION
+if (isset($_POST['ccompose'])) {
+    $msg = $_POST['cmessage'];
+    $name = $_POST['cname'];
+    $email = $_POST['cemail'];
+
+    $sql = "SELECT * FROM concern WHERE email='$email' AND name='$name'";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result->num_rows > 0) {
+        $conn->query("INSERT INTO concern (name, email, message, feedback, status) 
+        VALUES('$name','$email', '$msg', 'NA','PENDING')") or die($conn->error);
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'success',
+                title: 'Successfully Submitted your Concern',
+                text: 'We will update your transaction, for the meantime check your transaction to see the status of your concern',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "home.php";
+                    }else{
+                        window.location.href = "home.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'warning',
+                title: 'You have already sent your concern',
+                text: 'Please wait for your response',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "home.php";
+                    }else{
+                        window.location.href = "home.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }
+}
+
+#UPDATE ACCOUNT
+if (isset($_POST['updateAcc'])) {
+    $id = $_POST['pid'];
+    $username = $_POST['pusername'];
+    $pass1 = $_POST['ppass1'];
+    $pass2 = $_POST['ppass2'];
+
+    if ($pass1 != $pass2){
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+                Swal.fire({
+                icon: 'warning',
+                title: 'Your password does not match',
+                text: 'Check your password again',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "profile.php";
+                    }else{
+                        window.location.href = "profile.php";
+                    }
+                })
+                
+            })
+
+        </script>
+        <?php
+    }else{
+        $conn->query("UPDATE user SET username='$username', password='".password_hash($pass1, PASSWORD_DEFAULT)."', email='$emails' WHERE id='$id'") or die($conn->error);
+        session_destroy();
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+                Swal.fire({
+                icon: 'success',
+                title: 'Successfully Updated your Account',
+                text: 'You will be automatically logout and simply login your new account credentials',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "index.php";
+                    }else{
+                        window.location.href = "index.php";
+                    }
+                })
+                
+            })
+
+        </script>
+        <?php
+    }
+
+}
 
 
 

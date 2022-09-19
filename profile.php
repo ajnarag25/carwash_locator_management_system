@@ -180,68 +180,39 @@
 
         <section class="office-environments section-padding30" >
             <div class="container">
-                <div class="environments-wrapper environments-wrapper2 section-bg02" data-background="assets/img/gallery/carwash.jpg">
+                <div class="environments-wrapper environments-wrapper2 section-bg02" data-background="assets/img/gallery/profile.jfif">
                     <div class="row">
                         <div class="col-xl-7 col-lg-8 offset-xl-5 offset-lg-4">
                             <div class="office-pera">
                                 <div class="section-tittle">
-                                    <form action="functions.php" method="post">
-                                        <h2 class="mb-30">Carwash to be added:</h2>
-                                            <?php 
-                                                $emails = $_SESSION['get_data']['email'];
-                                                $sql = "SELECT * FROM carwash WHERE email='$emails' AND status='PENDING'";
-                                                $result = mysqli_query($conn, $sql);
-                                                if (!$result->num_rows > 0) {
-                                                    if (isset($_POST['addCarwash'])) {
-                                                        $name = $_POST['carName']; 
-                                                        $address = $_POST['carAddress'];
-                                                        $contact = $_POST['carContact'];
-                                                        echo"
-                                                        <h3>Carwash: $name</h3>
-                                                        <br>
-                                                        <h3>Address: $address</h3>
-                                                        <br>
-                                                        <h3>Contact: $contact</h3>
-                                                        ";
-                                                    }else{
-                                                        echo '<h2 class="mb-30">No Available Data!</h2>';
-                                                    }
-                                                }else{
-                                                    echo '<h2 class="mb-30">No Available Data!</h2>';
-                                                    ?>
-                                                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                                                    <script>
-                                                        $(document).ready(function(){
-                                                            Swal.fire({
-                                                            icon: 'error',
-                                                            title: 'You have a pending transaction',
-                                                            text: 'Please wait for the updated status of your booking.',
-                                                            confirmButtonColor: '#3085d6',
-                                                            confirmButtonText: 'Okay'
-                                                            }).then((result) => {
-                                                            if (result.isConfirmed) {
-                                                                window.location.href = "home.php";
-                                                                }else{
-                                                                    window.location.href = "home.php";
-                                                                }
-                                                            })
-                                                            
-                                                        })
-                                                
-                                                    </script>
-                                                    <?php
-                                                }
-                                               
-                                            
-                                            ?>
-                                        <br>
-                                        <input type="hidden" value="<?php echo $name ?>" name="carname">
-                                        <input type="hidden" value="<?php echo $address ?>" name="caraddress">
-                                        <input type="hidden" value="<?php echo $contact ?>" name="carcontact">
-                                        <input type="hidden" value="<?php echo $_SESSION['get_data']['email'] ?>" name="caremail">
-                                        <a href="home.php" class="btn">Cancel</a>
-                                        <button type="submit" class="btn" name="bookCar">Book Now</submit>
+                                    <h2 class="mb-30">Profile</h2>
+                                    <p>Update your account credentials.</p>
+                                    <form class="form-contact contact_form" method="post" action="functions.php">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="">Username</label>
+                                                    <input class="form-control valid" name="pusername" type="text" value="<?php echo $_SESSION['get_data']['username'] ?>" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="">New Password</label>
+                                                    <input class="form-control valid" name="ppass1" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = '*********'" placeholder="*********" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="">Retype Password</label>
+                                                    <input class="form-control" name="ppass2" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = '*********'" placeholder="*********" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="modal-footer">
+                                            <input type="hidden" name="pid" type="text" value="<?php echo $_SESSION['get_data']['id'] ?>">
+                                            <button type="submit" class="btn btn-primary" name="updateAcc">Update</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

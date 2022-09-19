@@ -74,7 +74,7 @@
                                                 <li><a href="home.php">Home</a></li>
                                                 <li><a href="" data-toggle="modal" data-target="#transaction">Transaction</a></li>
                                                 <li><a href="#services">Services</a></li>
-                                                <li><a href="#">Profile</a></li>
+                                                <li><a href="profile.php">Profile</a></li>
                                                 <li><a href="#contact">Contact</a></li>
                                                 <li><a href="functions.php?logout" type="submit" >Logout</a></li>                                      
                                             </ul>
@@ -138,6 +138,38 @@
                             </table>
                         </div>
                         <h3>Concerns</h3>
+                        <div class="card-body overflow-auto">
+                            <table class="table table-hover">
+                                <thead class="thead-dark">
+                                    <tr>
+                                    <th scope="col">Concern</th>
+                                    <th scope="col">Feedback</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                <?php 
+                                    $get_email = $_SESSION['get_data']['email'];
+                                    $query = "SELECT * FROM concern WHERE email='$get_email' ";
+                                    $result = mysqli_query($conn, $query);
+                                    while ($row = mysqli_fetch_array($result)) {
+
+                                ?>
+                                    <tr>
+                                    <td><?php echo $row['message']; ?></td>
+                                    <td><?php echo $row['feedback']?></td>
+                                    <td><?php echo $row['status']; ?></td>
+                                    <td>
+                                        <a class="btn btn-danger" style="color:white" href="functions.php?deleteConcern=<?php echo $row['id'] ?>">Delete</a>
+                                    </td>
+                                    </tr>
+                                </tbody>
+
+                                <?php }; ?>
+                            </table>
+                        </div>
 
                 </div>
             </div>
@@ -377,31 +409,26 @@
                 
                 <div class="col-lg-8">
                     <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
-                        <form class="form-contact contact_form" method="post"  >
+                        <form class="form-contact contact_form" method="post" action="functions.php">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message" required></textarea>
+                                        <textarea class="form-control w-100" name="cmessage" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name" required>
+                                        <input class="form-control valid" name="cname" id="name" type="text" value="<?php echo $_SESSION['get_data']['firstname'] ?> <?php echo $_SESSION['get_data']['lastname'] ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email" required>
+                                        <input class="form-control valid" name="cemail" id="email" type="email" value="<?php echo $_SESSION['get_data']['email'] ?>"  readonly>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder="Enter Subject" required>
-                                    </div>
-                                </div>
+                                </div>   
                             </div>
                             <div class="form-group mt-3">
-                                <button type="submit" class="button button-contactForm boxed-btn">Send</button>
+                                <button type="submit" class="button button-contactForm boxed-btn" name="ccompose">Send</button>
                             </div>
                         </form>
                     </div>
