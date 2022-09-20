@@ -1,6 +1,48 @@
-<link href="dist/css/style.min.css" rel="stylesheet">
 <?php
 include('connection.php');
+session_start();
+error_reporting(0);
+
+
+// login
+if (isset($_POST['login_admin'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $login="SELECT * FROM admin WHERE username='$username'";
+    $prompt = mysqli_query($conn, $login);
+    $getData = mysqli_fetch_array($prompt);
+
+    if ($username = $getData['username' && $password = $getData['password']]){
+        $_SESSION['username'] = $getData['username'];
+        header('location:dashboard.php');
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+          $(document).ready(function(){
+                Swal.fire({
+                icon: 'error',
+                title: 'Username and/or Password is incorrect',
+                text: 'Something went wrong!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "index.php";
+                    }else{
+                        window.location.href = "index.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }
+
+}
 
 // change profile pic
 if (isset($_POST['change_profile'])) {
@@ -68,7 +110,7 @@ if (isset($_POST['updateAdmin'])) {
         <?php
     }else{
         $conn->query("UPDATE admin SET username='$username', password='$pass1', email='$emails' WHERE id=1") or die($conn->error);
-        header("Location: ../index.php");
+        header("Location: index.php");
     }
 
 }
@@ -278,6 +320,142 @@ if (isset($_GET['deleteCarwash'])) {
     $id = $_GET['deleteCarwash'];
     $conn->query("DELETE FROM system_carwash WHERE id=$id") or die($conn->error);
     header("Location: carwash.php");
+}
+
+// update users
+if (isset($_POST['updateUser'])){
+    $id = $_POST['id'];
+    $first = $_POST['fname'];
+    $last = $_POST['lname'];
+    $user = $_POST['uname'];
+    $contacts = $_POST['contact'];
+    $email = $_POST['mail'];
+    
+    if ($id != null){
+        $conn->query("UPDATE user SET firstname='$first', lastname='$last', username='$user', contact='$contacts', email='$email' WHERE id='$id'") or die($conn->error);
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'success',
+                title: 'Successfully Updated',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "users.php";
+                    }else{
+                        window.location.href = "users.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'error',
+                title: 'No available data',
+                text: 'Somthing went wrong',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "users.php";
+                    }else{
+                        window.location.href = "users.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }
+
+}
+
+// delete user
+if (isset($_GET['deleteUser'])) {
+    $id = $_GET['deleteUser'];
+    $conn->query("DELETE FROM user WHERE id=$id") or die($conn->error);
+    header("Location: users.php");
+}
+
+
+// send message concern
+if (isset($_POST['composeMessage'])){
+    $id = $_POST['id'];
+    $messages = $_POST['msg'];
+    $emails = $_POST['email'];
+
+    if ($id != null){
+        $conn->query("UPDATE concern SET feedback='$messages', status='COMPOSED' WHERE email='$emails'") or die($conn->error);
+        include 'send_email_concern.php';
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'success',
+                title: 'Successfully Sent your Message',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "concern.php";
+                    }else{
+                        window.location.href = "concern.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'error',
+                title: 'No available data',
+                text: 'Somthing went wrong',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "concern.php";
+                    }else{
+                        window.location.href = "concern.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }
+
+}
+
+
+// delete user
+if (isset($_GET['deleteConcern'])) {
+    $id = $_GET['deleteConcern'];
+    $conn->query("DELETE FROM concern WHERE id=$id") or die($conn->error);
+    header("Location: concern.php");
 }
 
 ?>

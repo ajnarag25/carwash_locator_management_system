@@ -1,4 +1,9 @@
-<?php include 'connection.php';?>
+<?php include 'connection.php';
+session_start();
+if (!isset($_SESSION['username'])) {
+      header("Location: index.php");
+  }
+?>
 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -38,7 +43,7 @@
                         <i class="ti-menu ti-close"></i>
                     </a>
                     <div class="navbar-brand text-center">
-                        <a href="index.php" class="logo">
+                        <a href="dashboard.php" class="logo">
                             <b class="logo-icon">
                                 <img src="assets/images/loder.png" width="30" alt="homepage" class="light-logo" />
                             </b>
@@ -80,7 +85,7 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-av-timer"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -149,7 +154,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.php">Home</a>
+                                        <a href="dashboard.php">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Concerns</li>
                                 </ol>
@@ -170,10 +175,9 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Email</th>
-                                            <th scope="col">Contact No.</th>
                                             <th scope="col">Message</th>
                                             <th scope="col">Action</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Feedback</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -188,72 +192,72 @@
                                             <th><?php echo $row['id']; ?></th>
                                             <td><?php echo $row['name']; ?></td>
                                             <td><?php echo $row['email']?></td>
-                                            <td><?php echo $row['contact']; ?></td>
                                             <td><button data-bs-toggle="modal" data-bs-target="#viewMessage<?php echo $row['id'] ?>" class="btn btn-primary">View Message</button></td>
                                             <td>
                                                 <button type="button" class="btn btn-success" style="color:white" data-bs-toggle="modal" data-bs-target="#composeModal<?php echo $row['id'] ?>">  <i class="mdi mdi-message"></i></button>
                                                 <button type="button" class="btn btn-danger" style="color:white" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>
                                             </td>
-                                            <td><?php echo $row['status']; ?></td>
+                                            <td><?php echo $row['feedback']; ?></td>
                                           </tr>
                                         </tbody>
                                         
                                         <!-- Modal View Message-->
                                         <div class="modal fade" id="viewMessage<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Message of User <?php echo $row['name'] ?></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Message of User <?php echo $row['name'] ?></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <textarea name="" class="form-control" id="" cols="30" rows="5" readonly><?php echo $row['message'] ?></textarea>
+                                                    </div>
                                                 </div>
-                                                <div class="modal-body">
-                                                <textarea name="" class="form-control" id="" cols="30" rows="5" readonly><?php echo $row['message'] ?></textarea>
-                                                </div>
-                                            </div>
                                             </div>
                                         </div>
 
                                          <!-- Modal Delete-->
                                          <div class="modal fade" id="deleteModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete Student <?php echo $row['name'] ?></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Concern of: <?php echo $row['name'] ?></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <h4>Are you sure you want to delete this user's concern?</h4>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <a class="btn btn-danger" style="color:white" href="functions.php?deleteConcern=<?php echo $row["id"] ?>">Delete</a>
+                                                    </div>
                                                 </div>
-                                                <div class="modal-body">
-                                                <h4>Are you sure you want to delete this user's concern?</h4>
-                                                </div>
-                                                <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <a class="btn btn-danger" style="color:white" href="functions.php?deleteConcern=<?php echo $row["id"] ?>">Delete</a>
-                                                </div>
-                                            </div>
                                             </div>
                                         </div>
                                         
                                          <!-- Modal Compose Message -->
                                          <div class="modal fade" id="composeModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Compose Message for User: <?php echo $row['name'] ?></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form action="functions.php" method="POST">
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
-                                                    <h4>Message:</h4>
-                                                    <textarea name="msg" class="form-control" id="" cols="30" rows="7" required></textarea>
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Compose Message for User: <?php echo $row['name'] ?></h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="functions.php" method="POST">
+                                                        <div class="modal-body">
+                                                            <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                                                            <input type="hidden" name="email" value="<?php echo $row['email'] ?>">
+                                                            <h4>Message:</h4>
+                                                            <textarea name="msg" class="form-control" id="" cols="30" rows="7" required></textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-success" style="color:white" name="composeMessage">Send</button>
+                                                        </div>
+                                                    </form>
+                                                    </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-success" style="color:white" name="composeMessage">Send</button>
-                                                </div>
-                                            </form>
                                             </div>
-                                        </div>
-                                        </div>
 
                                       
                                         <?php }; ?>

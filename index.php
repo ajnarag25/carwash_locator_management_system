@@ -69,8 +69,9 @@
                                         <nav>
                                             <ul id="navigation">                                                                                          
                                                 <li><a href="index.php">Home</a></li>
-                                                <li><a href="#services">Services</a></li>
-                                                <li><a href="" data-toggle="modal" data-target="#login">Login</a></li>                                           
+                                                <li><a href="#services">Services</a></li>                
+                                                <li><a href="admin/index.php">Admin</a></li>    
+                                                <li><a href="" data-toggle="modal" data-target="#login">Login</a></li>                       
                                             </ul>
                                         </nav>
                                     </div>
@@ -318,6 +319,7 @@
                                     <ul>
                                         <li><a href="#">Home</a></li>
                                         <li><a href="#">Services</a></li>
+                                        <li><a href="#">Admin</a></li>
                                         <li><a href="#">Login</a></li>
                                     </ul>
                                 </div>

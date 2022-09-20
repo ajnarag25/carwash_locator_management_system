@@ -14,10 +14,10 @@ if (!isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
     <link href="assets/images/loder.png" rel="icon">
-    <title>Carwash Locator Management System - Profile</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin-lite/" />
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title>Carwash Locator Management System - Admin</title>
+    <link href="assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="dist/css/style.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -77,7 +77,7 @@ if (!isset($_SESSION['username'])) {
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                    <li class="sidebar-item">
+                        <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-av-timer"></i>
@@ -136,7 +136,7 @@ if (!isset($_SESSION['username'])) {
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Profile</h4>
+                        <h4 class="page-title">Dashboard</h4>
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
@@ -145,125 +145,95 @@ if (!isset($_SESSION['username'])) {
                                     <li class="breadcrumb-item">
                                         <a href="dashboard.php">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </div>
             </div>
+            <br><br>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4 col-xlg-3">
+                    <div class="col-lg-3">
                         <div class="card">
-                            <div class="card-body">
-                                <center class="mt-4"> 
+                            <div class="card-body" style="background-color: rgba(255, 255, 0, 0.534);">
+                                <div class="text-center">
+                                    <br>
+                                    <img src="assets/images/alumni.png" width="100" alt="">
+                                    <br><br>
+                                    <h2 class="card-title">Registered Users</h2>
                                     <?php 
-                                        $query = "SELECT * FROM admin ";
-                                        $result = mysqli_query($conn, $query);
-                                        while ($row = mysqli_fetch_array($result)) {
+                                        $sql = "SELECT * FROM user ";
+                                        $result=mysqli_query($conn, $sql);
+                                        $row = mysqli_num_rows($result);
                                     ?>
-                                    <img src="<?php echo $row['image']?>" class="rounded-circle" width="150" />
-                                    <?php }; ?>
-                                    <h4 class="card-title mt-2">Administrator</h4>
-                                    <h6 class="card-subtitle">Carwash Locator Management System</h6>
-                                    <form action="functions.php" enctype="multipart/form-data" method="POST">
-                                        <input type="file" name="profile_pic" class="form-control" required>
-                                        <br>
-                                        <button type="submit" class="btn btn-primary" name="change_profile">Change Profile Picture</button>
-                                    </form>
-                                </center>
+                                    <p>Total Registered Users : <?php echo $row; ?></p>
+                                </div>
                             </div>
-                            <div>
-                                <hr>
-                            </div>
-                            <div class="card-body"> <small class="text-muted">Email address </small>
-                                <?php 
-                                    $query = "SELECT * FROM admin ";
-                                    $result = mysqli_query($conn, $query);
-                                    while ($row = mysqli_fetch_array($result)) {
-                                ?>
-                                <h6><?php echo $row['email'] ?></h6> <small class="text-muted pt-4 db">Phone</small>
-                                <h6>(+63) 9318066384</h6> <small class="text-muted pt-4 db">Address</small>
-                                <h6>RF72+5X2, Quezon Blvd, Bayambang, 2423 Pangasinan</h6>
-                                <br>
-                                <div class="map-box">
-                                    <iframe
-                                        src="assets/images/map.png"
-                                        width="100%" height="250" frameborder="0" style="border:0"
-                                        allowfullscreen></iframe>
-                                </div> 
-                               <?php }; ?>
-                            </div>
+                            <a href="users.php" class="btn btn-warning w-100" >View Registered Users</a>   
                         </div>
                     </div>
-                    <div class="col-lg-8 col-xlg-9">
+                    <div class="col-lg-3">
                         <div class="card">
-                            <div class="card-body">
-                                <form class="form-horizontal form-material mx-2" action="functions.php" method="POST">
+                            <div class="card-body" style="background-color: rgba(116, 212, 72, 0.534);">
+                                <div class="text-center">
+                                    <br>
+                                    <img src="assets/images/notepad.png" width="85" alt="">
+                                    <br><br>
+                                    <h2 class="card-title">Bookings</h2>
                                     <?php 
-                                        $query = "SELECT * FROM admin ";
-                                        $result = mysqli_query($conn, $query);
-                                        while ($row = mysqli_fetch_array($result)) {
+                                        $sql = "SELECT * FROM carwash ";
+                                        $result=mysqli_query($conn, $sql);
+                                        $row = mysqli_num_rows($result);
                                     ?>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Username</label>
-                                        <div class="col-md-12">
-                                            <input type="text" name="user" value="<?php echo $row['username'] ?>" 
-                                                class="form-control form-control-line">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="example-email" class="col-md-12">Password</label>
-                                        <div class="col-md-12">
-                                            <input type="password" name="pass1" value="<?php echo $row['password'] ?>" 
-                                                class="form-control form-control-line" >
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="example-email" class="col-md-12">Retype Password</label>
-                                        <div class="col-md-12">
-                                            <input type="password" name="pass2" value="<?php echo $row['password'] ?>" 
-                                                class="form-control form-control-line">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="example-email" class="col-md-12">Email</label>
-                                        <div class="col-md-12">
-                                            <input type="email" name="mail" value="<?php echo $row['email'] ?>"
-                                                class="form-control form-control-line" >
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#changeModal" class="btn btn-success text-white">Update Profile</button>
-                                        </div>
-
-                                        <!-- Change Profile-->
-                                        <div class="modal fade" id="changeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                    <div class="modal-body">
-                                                        <h5>Update profile now?</h5>
-                                                        <h5>* After you change your account it will automatically <b>logout</b> and simply login your new updated account credentials *</h5>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="color:white">No</button>
-                                                        <button type="submit" class="btn btn-success" name="updateAdmin" style="color:white">Yes</button>
-                                                    </div>
-                                            </div>
-                                            <?php }; ?>
-                                            </div>
-                                    </div>
-                                </form>
+                                    <p>Total Bookings : <?php echo $row; ?></p>
+                                </div>
                             </div>
+                            <a href="booking.php" class="btn btn-success w-100" style="color:white" >View Bookings</a>   
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-body" style="background-color: rgba(129, 191, 237, 0.534);">
+                                <div class="text-center">
+                                    <br>
+                                    <img src="assets/images/plus.png" width="98" alt="">
+                                    <br><br>
+                                    <h2 class="card-title">Added Carwash</h2>
+                                    <?php 
+                                        $sql = "SELECT * FROM system_carwash ";
+                                        $result=mysqli_query($conn, $sql);
+                                        $row = mysqli_num_rows($result);
+                                    ?>
+                                    <p>Total Added Carwash : <?php echo $row; ?></p>
+
+                                </div>
+                            </div>
+                            <a href="carwash.php" class="btn btn-secondary w-100" style="color:white">View Added Carwash</a>   
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-body" style="background-color: #72FFDE;">
+                                <div class="text-center">
+                                    <br>
+                                    <img src="assets/images/message.png" width="103" alt="">
+                                    <br><br>
+                                    <h2 class="card-title">Submitted Concerns</h2>
+                                    <?php 
+                                        $sql = "SELECT * FROM concern ";
+                                        $result=mysqli_query($conn, $sql);
+                                        $row = mysqli_num_rows($result);
+                                    ?>
+                                    <p>Total Submitted Concerns : <?php echo $row; ?></p>
+                                </div>
+                            </div>
+                            <a href="concern.php" class="btn btn-primary w-100" >View Concerns</a>   
                         </div>
                     </div>
                 </div>
+           
             </div>
 
             <footer class="footer text-center">
@@ -271,8 +241,6 @@ if (!isset($_SESSION['username'])) {
             </footer>
         </div>
     </div>
-    
-
 
     <script src="assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -280,6 +248,9 @@ if (!isset($_SESSION['username'])) {
     <script src="dist/js/waves.js"></script>
     <script src="dist/js/sidebarmenu.js"></script>
     <script src="dist/js/custom.min.js"></script>
+    <script src="assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="dist/js/pages/dashboards/dashboard1.js"></script>
 </body>
 
 </html>

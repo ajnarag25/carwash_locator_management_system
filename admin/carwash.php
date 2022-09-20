@@ -1,5 +1,9 @@
 <?php 
 include('connection.php');
+session_start();
+if (!isset($_SESSION['username'])) {
+      header("Location: index.php");
+  }
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -38,7 +42,7 @@ include('connection.php');
                         <i class="ti-menu ti-close"></i>
                     </a>
                     <div class="navbar-brand text-center">
-                        <a href="index.php" class="logo">
+                        <a href="dashboard.php" class="logo">
                             <b class="logo-icon">
                                 <img src="assets/images/loder.png" width="30" alt="homepage" class="light-logo" />
                             </b>
@@ -80,7 +84,7 @@ include('connection.php');
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                     <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-av-timer"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -149,7 +153,7 @@ include('connection.php');
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.php">Home</a>
+                                        <a href="dashboard.php">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">List of Bookings</li>
                                 </ol>
