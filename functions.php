@@ -417,7 +417,7 @@ if (isset($_POST['updateAcc'])) {
         </script>
         <?php
     }else{
-        $conn->query("UPDATE user SET username='$username', password='".password_hash($pass1, PASSWORD_DEFAULT)."', email='$emails' WHERE id='$id'") or die($conn->error);
+        $conn->query("UPDATE user SET username='$username', password='".password_hash($pass1, PASSWORD_DEFAULT)."' WHERE id='$id'") or die($conn->error);
         session_destroy();
         ?>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
