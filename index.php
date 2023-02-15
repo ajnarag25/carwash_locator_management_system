@@ -183,9 +183,45 @@
                         <span class="sr-only">Next</span>
                     </a>
                     </div>
-                </div>
-        </section>
 
+                </div>
+                <br><br>
+                
+        </section>
+        <br>
+        <section class="pricing-card-area">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-7 col-md-10">
+                        <div class="section-tittle text-center mb-90">
+                            <h2>Available Carwash in Pangasinan</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <?php 
+                        $query = "SELECT * FROM system_carwash ";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_array($result)) {
+                    ?>
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
+                        <div class="single-card text-center mb-30">
+                            <div class="card-top">
+                                <img src="./admin/<?php echo $row['image'] ?>" width="300" alt="">
+                                <h4><?php echo $row['name'] ?></h4>
+                            </div>
+                            <div class="card-bottom">
+                                <p><?php echo $row['description'] ?></p>
+                                <a href="login.php" class="borders-btn">Check Details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php } ?>
+
+                </div>
+            </div>
+        </section>
         <!-- Modal Signup-->
         <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -292,6 +328,8 @@
                     </div>
                 </div>
             </div>
+
+        
         </section>
        
     </main>
