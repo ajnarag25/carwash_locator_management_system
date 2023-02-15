@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="assets/images/loder.png" rel="icon">
-    <title>Login Administrator</title>
-    <link rel="stylesheet" href="dist/css/login.css">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/loder.png">
+    <title>Login Customer User</title>
+    <link rel="stylesheet" href="assets/css/login.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -19,12 +19,12 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-9 col-lg-8 mx-auto">
-                                        <h3 class="login-heading mb-4">Login Administrator</h3>
+                                        <h3 class="login-heading mb-4">Login Account</h3>
 
                                     <form action="functions.php" method="POST">
                                         <div class="form-floating mb-3">
                                             <label for="floatingInput">Email <span style="color:red">*</span></label>
-                                            <input type="text" class="form-control" name="email"  placeholder="Enter Email" required>
+                                            <input type="email" class="form-control" name="email"  placeholder="Enter Email" required>
 
                                         <div class="form-floating mb-3">
                                             <label for="floatingPassword">Password <span style="color:red">*</span></label>
@@ -32,8 +32,8 @@
                                         </div>
 
                                         <div class="d-grid">
-                                            <a href="../index.php" class="btn btn-lg btn-secondary btn-login" style="color:white">Back</a>
-                                            <button class="btn btn-lg btn-primary btn-login" name="login_admin" type="submit">Login</button>
+                                            <a href="index.php" class="btn btn-lg btn-secondary btn-login" style="color:white">Back</a>
+                                            <button class="btn btn-lg btn-primary btn-login" name="login" type="submit">Login</button>
                                         </div>
 
                                     </form>

@@ -14,10 +14,10 @@ if (isset($_GET['logout'])) {
 
 #LOGIN
 if (isset($_POST['login'])) {
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $login="SELECT * FROM user WHERE username='$username'";
+    $login="SELECT * FROM user WHERE email='$email' AND account_type='Customer'";
     $prompt = mysqli_query($conn, $login);
     $getData = mysqli_fetch_array($prompt);
 
@@ -38,9 +38,9 @@ if (isset($_POST['login'])) {
                 confirmButtonText: 'Okay'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "index.php";
+                    window.location.href = "login.php";
                     }else{
-                        window.location.href = "index.php";
+                        window.location.href = "login.php";
                     }
                 })
                 
@@ -55,11 +55,11 @@ if (isset($_POST['login'])) {
 
 #SIGNUP PART
 if (isset($_POST['signup'])) {
+    $account_type = $_POST['account'];
     $first = $_POST['firstname'];
     $last = $_POST['lastname'];
     $contact = $_POST['contact'];
     $emails = $_POST['email'];
-    $user = $_POST['username'];
     $pass1 = $_POST['password1'];
     $pass2 = $_POST['password2'];
 
@@ -92,8 +92,8 @@ if (isset($_POST['signup'])) {
         <?php
     }else{
         if (!$result->num_rows > 0) {
-            $conn->query("INSERT INTO user (firstname, lastname, contact, email, username, password, otp) 
-                VALUES('$first','$last', '$contact', '$emails', '$user', '".password_hash($pass1, PASSWORD_DEFAULT)."', 0)") or die($conn->error);
+            $conn->query("INSERT INTO user (image, account_type ,firstname, lastname, contact, email, password, otp) 
+                VALUES('../assets/default.png','$account_type','$first','$last', '$contact', '$emails', '".password_hash($pass1, PASSWORD_DEFAULT)."', 0)") or die($conn->error);
                 ?>
                 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

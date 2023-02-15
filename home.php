@@ -1,7 +1,7 @@
 <?php 
   include('connection.php');
   session_start();
-  if (!isset($_SESSION['get_data']['username'])) {
+  if (!isset($_SESSION['get_data']['email'])) {
         header("Location: index.php");
     }
 ?>

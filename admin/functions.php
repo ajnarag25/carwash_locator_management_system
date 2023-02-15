@@ -6,15 +6,15 @@ error_reporting(0);
 
 // login
 if (isset($_POST['login_admin'])) {
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $login="SELECT * FROM admin WHERE username='$username'";
+    $login="SELECT * FROM user WHERE email='$email' AND account_type='Admin'";
     $prompt = mysqli_query($conn, $login);
     $getData = mysqli_fetch_array($prompt);
 
-    if ($username = $getData['username' && $password = $getData['password']]){
-        $_SESSION['username'] = $getData['username'];
+    if (password_verify($password, $getData['password'])){
+        $_SESSION['email'] = $getData['email'];
         header('location:dashboard.php');
     }else{
         ?>

@@ -71,7 +71,8 @@
                                                 <li><a href="index.php">Home</a></li>
                                                 <li><a href="#services">Services</a></li>                
                                                 <li><a href="admin/index.php">Admin</a></li>    
-                                                <li><a href="" data-toggle="modal" data-target="#login">Login</a></li>                       
+                                                <li><a href="login.php">Login</a></li>   
+                                                <li><a href="" data-toggle="modal" data-target="#signup">Signup</a></li>                        
                                             </ul>
                                         </nav>
                                     </div>
@@ -89,7 +90,7 @@
         <!-- Header End -->
     </header>
 
-    <!-- Modal Login-->
+    <!-- Modal Login
     <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -123,27 +124,22 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <main>
-        <!-- slider Area Start-->
+
         <div class="container-fluid">
-            <div class="slider-area position-relative">
+            <div class="slider-area2">
                 <div class="slider-active dot-style">
                     <!-- Single Slider -->
-                    <div class="single-slider hero-overly slider-height slider-bg1 d-flex align-items-center">
+                    <div class="slider-height2 hero-overly d-flex align-items-center">
                         <div class="container">
                             <div class="row">
-                                <div class="col-xl-9 col-lg-11 col-md-11">
-                                    <div class="hero__caption">
-                                        <h1 data-animation="fadeInUp" data-delay=".2s">Carwash Locator Management </h1>
-                                        <div class="hero-details">
-                                            <div class="stock-text" data-animation="fadeInUp" data-delay=".8s">
-                                                <h2>system</h2>
-                                                <h2>system</h2>
-                                            </div>
-                                            <P data-animation="fadeInUp" data-delay=".4s">The Carwash Locator Management System is intended for finding accurate location of Carwash near in your place.</P>
-                                        </div>
+                                <div class="col-xl-12">
+                                    <div class="hero-cap hero-cap2">
+                                        <h2>Carwash Locator Management System</h2>
+                                        <br>
+                                        <p style="color:white">The Carwash Locator Management System is intended for finding accurate location of Carwash near in your place.</p>
                                     </div>
                                 </div>
                             </div>
@@ -154,22 +150,40 @@
         </div>
         <!-- slider Area End-->
         <!--? Office environment  Start-->
-        <section class="office-environments" >
+        <section class="office-environments mt-1" >
             <div class="container">
-                <div class="environments-wrapper section-bg02" data-background="assets/img/gallery/section_bg02.jpg">
-                    <div class="row">
-                        <div class="col-xl-7 col-lg-8 offset-xl-5 offset-lg-4">
-                            <div class="office-pera">
-                                <div class="section-tittle">
-                                    <h2 class="mb-30">Create your account now!</h2>
-                                    <p>Simply create your account and pick your desired carwash places near you.</p>
-                                    <a href="#" class="btn" data-toggle="modal" data-target="#signup">Signup</a>
-                                </div>
-                            </div>
+                <br><br>
+                <div class="section-tittle mb-60">
+                    <h2>Welcome User</h2>
+                    <p>We provide quality services according to your needs for locating and inquiring/booking some of the carwash near in your place.</p>
+                </div>
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                        <img class="d-block w-100" src="assets/img/gallery/carwash.jpg" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                        <img class="d-block w-100" src="assets/img/gallery/carwash2.jpg" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                        <img class="d-block w-100" src="assets/img/gallery/carwash3.jpg" alt="Third slide">
                         </div>
                     </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    </div>
                 </div>
-            </div>
         </section>
 
         <!-- Modal Signup-->
@@ -185,46 +199,51 @@
                     <div class="modal-body">
                     <form class="form-contact contact_form" method="post" action="functions.php">
                         <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">Account Type <span style="color:red">*</span></label>
+                                    <select name="account" class="form-select" id="" require>
+                                        <option value="" selected disabled>Select Account Type</option>
+                                        <option value="Owner">Owner</option>
+                                        <option value="Customer">Customer</option>
+                                    </select>
+                                </div>
+                                <br><br>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="">Firstname</label>
+                                    <label for="">Firstname <span style="color:red">*</span></label>
                                     <input class="form-control valid" name="firstname" onkeyup="lettersOnly(this)"  type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Firstname'" placeholder="Enter Firstname" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="">Lastname</label>
+                                    <label for="">Lastname <span style="color:red">*</span></label>
                                     <input class="form-control valid" name="lastname" onkeyup="lettersOnly(this)"  type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Lastname'" placeholder="Enter Lastname" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="">Contact no.</label>
+                                    <label for="">Contact no. <span style="color:red">*</span></label>
                                     <input class="form-control valid" name="contact" id="contact_id"  type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Contact no.'" placeholder="Enter Contact no." required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="">Email</label>
+                                    <label for="">Email <span style="color:red">*</span></label>
                                     <input class="form-control valid" name="email"  type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email'" placeholder="Enter Email" required>
                                 </div>
                             </div>
                             <hr>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="">Username</label>
-                                    <input class="form-control valid" name="username" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Username'" placeholder="Enter Username" required>
-                                </div>
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="">Password</label>
+                                    <label for="">Password <span style="color:red">*</span></label>
                                     <input class="form-control" name="password1" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Password'" placeholder="Enter Password" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="">Retype Password</label>
+                                    <label for="">Retype Password <span style="color:red">*</span></label>
                                     <input class="form-control" name="password2" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Retype Password'" placeholder="Retype Password" required>
                                 </div>
                             </div>
@@ -248,7 +267,6 @@
                     <div class="col-xl-6 col-lg-7 col-md-10 col-sm-11">
                         <div class="section-tittle mb-60">
                             <h2>Our Services</h2>
-                            <p>We provide quality services according to your needs for locating and inquiring/booking some of the carwash near in your place.</p>
                         </div>
                     </div>
                 </div>
@@ -390,7 +408,7 @@
 <script src="./assets/js/main.js"></script>
 <script>
     function lettersOnly(input) {
-        var regex = /[^a-z]/gi;
+        var regex = /[^a-z ]/gi;
         input.value = input.value.replace(regex, "");
     }
 </script>

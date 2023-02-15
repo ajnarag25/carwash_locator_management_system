@@ -1,7 +1,7 @@
 <?php 
 include('connection.php');
 session_start();
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['email'])) {
       header("Location: index.php");
   }
 ?>
@@ -159,7 +159,7 @@ if (!isset($_SESSION['username'])) {
                             <div class="card-body">
                                 <center class="mt-4"> 
                                     <?php 
-                                        $query = "SELECT * FROM admin ";
+                                        $query = "SELECT * FROM user WHERE account_type='Admin' ";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
                                     ?>
