@@ -194,8 +194,8 @@ if (!isset($_SESSION['email'])) {
                                             <td><?php echo $row['email']?></td>
                                             <td><button data-bs-toggle="modal" data-bs-target="#viewMessage<?php echo $row['id'] ?>" class="btn btn-primary">View Message</button></td>
                                             <td>
-                                                <button type="button" class="btn btn-success" style="color:white" data-bs-toggle="modal" data-bs-target="#composeModal<?php echo $row['id'] ?>">  <i class="mdi mdi-message"></i></button>
-                                                <button type="button" class="btn btn-danger" style="color:white" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>
+                                                <button type="button" class="btn btn-success" style="color:white" data-bs-placement="top" title="Compose Message" data-bs-toggle="modal" data-bs-target="#composeModal<?php echo $row['id'] ?>">  <i class="mdi mdi-message"></i></button>
+                                                <button type="button" class="btn btn-danger" style="color:white" data-bs-placement="top" title="Delete Concern" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>
                                             </td>
                                             <td><?php echo $row['feedback']; ?></td>
                                           </tr>

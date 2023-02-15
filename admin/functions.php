@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="dist/css/bootstrap.min.css">
+
 <?php
 include('connection.php');
 session_start();
@@ -63,7 +65,7 @@ if (isset($_POST['change_profile'])) {
     } else {
       move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file);
     }
-        $sql='UPDATE admin SET image="'.$target_file.'" WHERE id=1';
+        $sql='UPDATE user SET image="'.$target_file.'" WHERE account_type="Admin"';
         $result = mysqli_query($conn, $sql);
         header('location: profile.php');
         
@@ -78,10 +80,9 @@ if (isset($_POST['change_profile'])) {
 
 // update credentials
 if (isset($_POST['updateAdmin'])) {
-    $username = $_POST['user'];
+    $emails = $_POST['mail'];
     $pass1 = $_POST['pass1'];
     $pass2 = $_POST['pass2'];
-    $emails = $_POST['mail'];
     
     if ($pass1 != $pass2){
         ?>
@@ -109,7 +110,7 @@ if (isset($_POST['updateAdmin'])) {
         </script>
         <?php
     }else{
-        $conn->query("UPDATE admin SET username='$username', password='$pass1', email='$emails' WHERE id=1") or die($conn->error);
+        $conn->query("UPDATE user SET password='".password_hash($pass1, PASSWORD_DEFAULT)."', email='$emails' WHERE account_type='Admin'") or die($conn->error);
         header("Location: index.php");
     }
 
@@ -327,12 +328,11 @@ if (isset($_POST['updateUser'])){
     $id = $_POST['id'];
     $first = $_POST['fname'];
     $last = $_POST['lname'];
-    $user = $_POST['uname'];
     $contacts = $_POST['contact'];
     $email = $_POST['mail'];
     
     if ($id != null){
-        $conn->query("UPDATE user SET firstname='$first', lastname='$last', username='$user', contact='$contacts', email='$email' WHERE id='$id'") or die($conn->error);
+        $conn->query("UPDATE user SET firstname='$first', lastname='$last', contact='$contacts', email='$email' WHERE id='$id'") or die($conn->error);
         ?>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

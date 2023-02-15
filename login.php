@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/loder.png">
-    <title>Login Customer User</title>
+    <title>Login Account</title>
     <link rel="stylesheet" href="assets/css/login.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -23,9 +23,17 @@
 
                                     <form action="functions.php" method="POST">
                                         <div class="form-floating mb-3">
+                                            <label for="floatingInput">Login as <span style="color:red">*</span></label>
+                                            <select name="account" class="form-control" id="" required>
+                                                <option value="" selected>--Select Account Type--</option>
+                                                <option value="Owner">Owner</option>
+                                                <option value="Customer">Customer</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-floating mb-3">
                                             <label for="floatingInput">Email <span style="color:red">*</span></label>
                                             <input type="email" class="form-control" name="email"  placeholder="Enter Email" required>
-
+                                        </div>
                                         <div class="form-floating mb-3">
                                             <label for="floatingPassword">Password <span style="color:red">*</span></label>
                                             <input type="password" class="form-control" name="password" placeholder="Enter Password" required>

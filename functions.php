@@ -16,46 +16,106 @@ if (isset($_GET['logout'])) {
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $account = $_POST['account'];
 
-    $login="SELECT * FROM user WHERE email='$email' AND account_type='Customer'";
-    $prompt = mysqli_query($conn, $login);
-    $getData = mysqli_fetch_array($prompt);
+    $login1="SELECT * FROM user WHERE email='$email' AND account_type='Customer'";
+    $prompt1 = mysqli_query($conn, $login1);
+    $getData1 = mysqli_fetch_array($prompt1);
 
-    if (password_verify($password, $getData['password'])){
-        $_SESSION['get_data'] = $getData;
-        header('location:home.php');
-    }else{
+    $login2="SELECT * FROM user WHERE email='$email' AND account_type='Owner'";
+    $prompt2 = mysqli_query($conn, $login2);
+    $getData2 = mysqli_fetch_array($prompt2);
+
+    if ($account == 'Customer'){
+        if (password_verify($password, $getData1['password'])){
+            $_SESSION['get_data'] = $getData1;
+            header('location:home.php');
+        }else{
         ?>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script>
-          $(document).ready(function(){
-                Swal.fire({
-                icon: 'error',
-                title: 'Username and/or Password is incorrect',
-                text: 'Something went wrong!',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Okay'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "login.php";
-                    }else{
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function(){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Username and/or Password is incorrect',
+                    text: 'Something went wrong!',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Okay'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
                         window.location.href = "login.php";
-                    }
+                        }else{
+                            window.location.href = "login.php";
+                        }
+                    })
+                    
                 })
-                
-            })
-    
-        </script>
-        <?php
+        
+            </script>
+            <?php
+        }
+    }elseif ($account == 'Owner'){
+        if (password_verify($password, $getData2['password'])){
+            $_SESSION['get_data'] = $getData2;
+            header('location:home.php');
+        }else{
+        ?>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function(){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Username and/or Password is incorrect',
+                    text: 'Something went wrong!',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Okay'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "login.php";
+                        }else{
+                            window.location.href = "login.php";
+                        }
+                    })
+                    
+                })
+        
+            </script>
+            <?php
+        }
+    } else{
+        ?>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function(){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'An Error Occured',
+                    text: 'Something went wrong!',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Okay'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "login.php";
+                        }else{
+                            window.location.href = "login.php";
+                        }
+                    })
+                    
+                })
+        
+            </script>
+            <?php
     }
+ 
 
 }
 
 
 #SIGNUP PART
 if (isset($_POST['signup'])) {
-    $account_type = $_POST['account'];
     $first = $_POST['firstname'];
     $last = $_POST['lastname'];
     $contact = $_POST['contact'];
@@ -93,7 +153,7 @@ if (isset($_POST['signup'])) {
     }else{
         if (!$result->num_rows > 0) {
             $conn->query("INSERT INTO user (image, account_type ,firstname, lastname, contact, email, password, otp) 
-                VALUES('../assets/default.png','$account_type','$first','$last', '$contact', '$emails', '".password_hash($pass1, PASSWORD_DEFAULT)."', 0)") or die($conn->error);
+                VALUES('../assets/default.png','Customer','$first','$last', '$contact', '$emails', '".password_hash($pass1, PASSWORD_DEFAULT)."', 0)") or die($conn->error);
                 ?>
                 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -157,18 +217,22 @@ if (isset($_POST['bookCar'])) {
     $cemail = $_POST['caremail'];
     $cdate = $_POST['cardate'];
     $ctime = $_POST['cartime'];
-    if ($cemail != null){
-        $conn->query("INSERT INTO carwash (person, name, address, contact, email, date, time,status, note) 
-        VALUES('$cperson','$cname','$caddress', '$ccontact', '$cemail', '$cdate', '$ctime','PENDING','NA')") or die($conn->error);
+    date_default_timezone_set('Asia/Manila');
+    $set_date = date("Y-m-d");
+
+    $sql = "SELECT * FROM carwash WHERE date_submit='$set_date'";
+    $result = mysqli_query($conn, $sql);
+    
+    if ($result->num_rows >= 10) {
         ?>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
                 Swal.fire({
-                icon: 'success',
-                title: 'Successfully Booked',
-                text: 'We will update your transaction, for the meantime check your transaction to see the status of your booking',
+                icon: 'error',
+                title: 'Cannot Exceed in 10 Bookings for today',
+                text: 'Please submit another booking tommorrow',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Okay'
                 }).then((result) => {
@@ -184,30 +248,59 @@ if (isset($_POST['bookCar'])) {
         </script>
         <?php
     }else{
-        ?>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function(){
-                Swal.fire({
-                icon: 'error',
-                title: 'No Data Available',
-                text: 'Something went wrong!',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Okay'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "home.php";
-                    }else{
-                        window.location.href = "home.php";
-                    }
-                })
-                
-            })
-    
-        </script>
-        <?php
+            if ($cemail != null){
+                $conn->query("INSERT INTO carwash (person, name, address, contact, email, date, time,status, note, date_submit) 
+                VALUES('$cperson','$cname','$caddress', '$ccontact', '$cemail', '$cdate', '$ctime','PENDING','NA', '$set_date')") or die($conn->error);
+                ?>
+                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(function(){
+                        Swal.fire({
+                        icon: 'success',
+                        title: 'Successfully Booked',
+                        text: 'We will update your transaction, for the meantime check your transaction to see the status of your booking',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Okay'
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "home.php";
+                            }else{
+                                window.location.href = "home.php";
+                            }
+                        })
+                        
+                    })
+            
+                </script>
+                <?php
+            }else{
+                ?>
+                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(function(){
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'No Data Available',
+                        text: 'Something went wrong!',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Okay'
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "home.php";
+                            }else{
+                                window.location.href = "home.php";
+                            }
+                        })
+                        
+                    })
+            
+                </script>
+                <?php
+            }
     }
+ 
 
 }
 
@@ -388,7 +481,7 @@ if (isset($_POST['ccompose'])) {
 #UPDATE ACCOUNT
 if (isset($_POST['updateAcc'])) {
     $id = $_POST['pid'];
-    $username = $_POST['pusername'];
+    $email = $_POST['pemail'];
     $pass1 = $_POST['ppass1'];
     $pass2 = $_POST['ppass2'];
 
@@ -417,7 +510,7 @@ if (isset($_POST['updateAcc'])) {
         </script>
         <?php
     }else{
-        $conn->query("UPDATE user SET username='$username', password='".password_hash($pass1, PASSWORD_DEFAULT)."' WHERE id='$id'") or die($conn->error);
+        $conn->query("UPDATE user SET email='$email', password='".password_hash($pass1, PASSWORD_DEFAULT)."' WHERE id='$id'") or die($conn->error);
         session_destroy();
         ?>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

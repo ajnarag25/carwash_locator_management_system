@@ -1,7 +1,7 @@
 <?php 
   include('connection.php');
   session_start();
-  if (!isset($_SESSION['get_data']['username'])) {
+  if (!isset($_SESSION['get_data']['email'])) {
         header("Location: index.php");
     }
 ?>
@@ -189,8 +189,8 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="">Username</label>
-                                                    <input class="form-control valid" name="pusername" type="text" value="<?php echo $_SESSION['get_data']['username'] ?>" required>
+                                                    <label for="">Email</label>
+                                                    <input class="form-control valid" name="pemail" type="email" value="<?php echo $_SESSION['get_data']['email'] ?>" required>
                                                 </div>
                                             </div>
                                             <div class="col-12">

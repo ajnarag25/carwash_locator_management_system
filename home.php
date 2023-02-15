@@ -255,7 +255,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Select a preferred date <span style="color:red">*</span></label></label>
-                                    <input class="form-control valid" name="carDate" type="date"  required>
+                                    <input class="form-control valid" id="date_picker" name="carDate" type="date"  required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -331,7 +331,7 @@
                                     <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Select a preferred date <span style="color:red">*</span></label></label>
-                                                <input class="form-control valid" name="carDate" type="date"  required>
+                                                <input class="form-control valid" id="date_picker2" name="carDate" type="date"  required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -581,6 +581,17 @@
     <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
-    
+    <script language="javascript">
+        $(document).ready(function () {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd;
+            $('[id=date_picker]').attr('min',today);
+            $('[id=date_picker2]').attr('min',today);
+        });
+    </script>
 </body>
 </html>

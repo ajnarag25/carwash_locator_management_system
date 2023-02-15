@@ -28,7 +28,7 @@
 
                                         <div class="form-floating mb-3">
                                             <label for="floatingPassword">Password <span style="color:red">*</span></label>
-                                            <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
+                                            <input type="password" class="form-control" name="password" placeholder="Enter Password">
                                         </div>
 
                                         <div class="d-grid">

@@ -199,17 +199,6 @@
                     <div class="modal-body">
                     <form class="form-contact contact_form" method="post" action="functions.php">
                         <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="">Account Type <span style="color:red">*</span></label>
-                                    <select name="account" class="form-select" id="" require>
-                                        <option value="" selected disabled>Select Account Type</option>
-                                        <option value="Owner">Owner</option>
-                                        <option value="Customer">Customer</option>
-                                    </select>
-                                </div>
-                                <br><br>
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Firstname <span style="color:red">*</span></label>

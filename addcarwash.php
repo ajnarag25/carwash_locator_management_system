@@ -1,7 +1,7 @@
 <?php 
   include('connection.php');
   session_start();
-  if (!isset($_SESSION['get_data']['username'])) {
+  if (!isset($_SESSION['get_data']['email'])) {
         header("Location: index.php");
     }
 ?>
@@ -184,7 +184,7 @@
                             <div class="office-pera">
                                 <div class="section-tittle">
                                     <form action="functions.php" method="post">
-                                        <h2 class="mb-30">Carwash to be added:</h2>
+                                        <h2 class="mb-30">Carwash Details:</h2>
                                             <?php 
                                                 $emails = $_SESSION['get_data']['email'];
                                                 $sql = "SELECT * FROM carwash WHERE email='$emails' AND status='PENDING'";

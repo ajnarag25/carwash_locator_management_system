@@ -174,7 +174,6 @@ if (!isset($_SESSION['email'])) {
                                             <th scope="col">#</th>
                                             <th scope="col">Firstname</th>
                                             <th scope="col">Lastname</th>
-                                            <th scope="col">Username</th>
                                             <th scope="col">Contact no.</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Action</th>
@@ -183,7 +182,7 @@ if (!isset($_SESSION['email'])) {
                                         <tbody>
 
                                         <?php 
-                                            $query = "SELECT * FROM user ";
+                                            $query = "SELECT * FROM user WHERE account_type='Owner'";
                                             $result = mysqli_query($conn, $query);
                                             while ($row = mysqli_fetch_array($result)) {
 
@@ -192,12 +191,11 @@ if (!isset($_SESSION['email'])) {
                                             <th><?php echo $row['id']; ?></th>
                                             <td><?php echo $row['firstname']; ?></td>
                                             <td><?php echo $row['lastname']?></td>
-                                            <td><?php echo $row['username']; ?></td>
                                             <td><?php echo $row['contact']; ?></td>
                                             <td><?php echo $row['email']; ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id'] ?>"> <i class="mdi mdi-pencil"></i></button>
-                                                <button type="button" class="btn btn-danger" style="color:white" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>
+                                                <button type="button" class="btn btn-primary" data-bs-placement="top" title="Edit Account Details" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id'] ?>"> <i class="mdi mdi-pencil"></i></button>
+                                                <button type="button" class="btn btn-danger" data-bs-placement="top" title="Delete User" style="color:white" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>
                                             </td>
                                           </tr>
                                         </tbody>
@@ -236,8 +234,6 @@ if (!isset($_SESSION['email'])) {
                                                     <input type="text" class="form-control" name="fname" value="<?php echo $row['firstname'] ?>">
                                                     <label for="">Lastname</label>
                                                     <input type="text" class="form-control" name="lname" value="<?php echo $row['lastname'] ?>">
-                                                    <label for="">Username</label>
-                                                    <input type="text" class="form-control" name="uname" value="<?php echo $row['username'] ?>">
                                                     <label for="">Contact No.</label>
                                                     <input type="number" class="form-control" name="contact" value="<?php echo $row['contact'] ?>">
                                                     <label for="">Email</label>

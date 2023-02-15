@@ -230,8 +230,8 @@ if (!isset($_SESSION['email'])) {
                                             <td><?php echo $row['address']; ?></td>
                                             <td><?php echo $row['description']; ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id'] ?>"> <i class="mdi mdi-pencil"></i></button>
-                                                <button type="button" class="btn btn-danger" style="color:white" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>
+                                                <button type="button" class="btn btn-primary" data-bs-placement="top" title="Edit Carwash Details" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id'] ?>"> <i class="mdi mdi-pencil"></i></button>
+                                                <button type="button" class="btn btn-danger" data-bs-placement="top" title="Delete Carwash" style="color:white" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>
                                             </td>
                                           </tr>
                                         </tbody>
