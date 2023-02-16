@@ -1,7 +1,7 @@
 <?php 
 include('connection.php');
 session_start();
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['get_data']['email'])) {
       header("Location: index.php");
   }
 ?>
@@ -36,12 +36,12 @@ if (!isset($_SESSION['email'])) {
                         <i class="ti-menu ti-close"></i>
                     </a>
                     <div class="navbar-brand text-center">
-                        <a href="dashboard.php" class="logo">
+                        <a href="index.php" class="logo">
                             <b class="logo-icon">
                                 <img src="assets/images/loder.png" width="30" alt="homepage" class="light-logo" />
                             </b>
                             <span class="logo-text">
-                                <span style="color: white">System Administrator</span>
+                                <span style="color: white">Carwash Owner</span>
                             </span>
                         </a>
                     </div>
@@ -78,38 +78,10 @@ if (!isset($_SESSION['email'])) {
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                     <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-av-timer"></i>
                                 <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="users.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-account"></i>
-                                <span class="hide-menu">Users</span>
-                            </a>
-                        </li>
-                        <!-- <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="booking.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-book"></i>
-                                <span class="hide-menu">Bookings</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="carwash.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-car"></i>
-                                <span class="hide-menu">Carwash</span>
-                            </a>
-                        </li> -->
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="concern.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-message-reply-text"></i>
-                                <span class="hide-menu">Concerns</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -143,7 +115,7 @@ if (!isset($_SESSION['email'])) {
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="dashboard.php">Home</a>
+                                        <a href="index.php">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Profile</li>
                                 </ol>

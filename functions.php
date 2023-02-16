@@ -58,7 +58,7 @@ if (isset($_POST['login'])) {
     }elseif ($account == 'Owner'){
         if (password_verify($password, $getData2['password'])){
             $_SESSION['get_data'] = $getData2;
-            header('location:home.php');
+            header('location:./owner/index.php');
         }else{
         ?>
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
