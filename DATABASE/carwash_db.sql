@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2022 at 04:41 PM
+-- Generation Time: Feb 16, 2023 at 05:01 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -24,23 +24,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Table structure for table `branches`
 --
 
-CREATE TABLE `admin` (
+CREATE TABLE `branches` (
   `id` int(11) NOT NULL,
-  `image` text NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `owner` varchar(100) NOT NULL,
+  `branch` varchar(100) NOT NULL,
+  `barangay` varchar(100) NOT NULL,
+  `municipality` varchar(100) NOT NULL,
+  `province` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`id`, `image`, `username`, `password`, `email`) VALUES
-(1, 'uploads/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg', 'administrator', 'admin123', 'admin@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -50,6 +44,7 @@ INSERT INTO `admin` (`id`, `image`, `username`, `password`, `email`) VALUES
 
 CREATE TABLE `carwash` (
   `id` int(11) NOT NULL,
+  `owner` varchar(100) NOT NULL,
   `person` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `address` varchar(100) NOT NULL,
@@ -58,7 +53,8 @@ CREATE TABLE `carwash` (
   `date` varchar(100) NOT NULL,
   `time` varchar(100) NOT NULL,
   `status` varchar(100) NOT NULL,
-  `note` text NOT NULL
+  `note` text NOT NULL,
+  `date_submit` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -85,20 +81,18 @@ CREATE TABLE `concern` (
 CREATE TABLE `system_carwash` (
   `id` int(11) NOT NULL,
   `image` text NOT NULL,
+  `owner` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `barangay` varchar(100) NOT NULL,
+  `municipality` varchar(100) NOT NULL,
+  `province` varchar(100) NOT NULL,
   `contact` varchar(100) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `description` varchar(100) NOT NULL
+  `branch` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `services` varchar(100) NOT NULL,
+  `promo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `system_carwash`
---
-
-INSERT INTO `system_carwash` (`id`, `image`, `name`, `contact`, `address`, `description`) VALUES
-(3, 'uploads/1663599849car1.PNG', 'D3 Garage Carwash and Auto Detailing Services', '09273545757', '233, Urdaneta, 2428 Pangasinan', 'Carwash and Auto Detailing Services'),
-(4, 'uploads/1663600044car2.PNG', 'Gabs Carwash', '09177240574', 'WC97+2P4, General Luna St, Malasiqui, Pangasinan', 'Express Carwash Services'),
-(5, 'uploads/1663600153car3.PNG', 'Boss Teo Car Wash', 'NA', '28CH+WGX, Dagupan, Pangasinan', 'Carwash Services');
 
 -- --------------------------------------------------------
 
@@ -108,23 +102,31 @@ INSERT INTO `system_carwash` (`id`, `image`, `name`, `contact`, `address`, `desc
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
+  `account_type` varchar(100) NOT NULL,
+  `image` text NOT NULL,
   `firstname` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `contact` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `otp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `account_type`, `image`, `firstname`, `lastname`, `contact`, `email`, `password`, `otp`) VALUES
+(1, 'Admin', 'uploads/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg', '', '', '09318066384', 'carwashloc2022@gmail.com', '$2y$10$Jclvi.zzCAKfuntDXAp.1e6cuZ1oGlSkcryKCeG6dnupTbC16/3HG', 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `branches`
 --
-ALTER TABLE `admin`
+ALTER TABLE `branches`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -156,10 +158,10 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT for table `branches`
 --
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `branches`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `carwash`
@@ -177,13 +179,13 @@ ALTER TABLE `concern`
 -- AUTO_INCREMENT for table `system_carwash`
 --
 ALTER TABLE `system_carwash`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
