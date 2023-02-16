@@ -143,10 +143,10 @@ if (!isset($_SESSION['email'])) {
                 <div class="row">
                     <div class="col-5 align-self-center">
                         <h4 class="page-title">Registered Users</h4>
-                        <div class="col-lg-10" style="display: inline-flex;">
+                        <!-- <div class="col-lg-10" style="display: inline-flex;">
                             <input type="search" class="form-control rounded"  placeholder="Search" onkeyup="studentSearch()" id="searchStudent" />
                             <span class="input-group-text bg-success text-white"><i class='mdi mdi-magnify'></i></span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
@@ -181,26 +181,29 @@ if (!isset($_SESSION['email'])) {
                                             </div>
                                             <form action="functions.php" method="POST"  enctype="multipart/form-data">
                                                 <div class="modal-body">
-                                                    <h5 class="modal-title">This is to add available carwash in the system</h5>
+                                                    <h5 class="modal-title">This is to add available owners in the system</h5>
                                                     <br>
-                                                    <label>Upload Image</label>
-                                                    <input type="file" class="form-control" name="carImage" accept="image/png, image/jpeg" required>
+                                                    <label>Firstname <span style='color:red'>*</span></label>
+                                                    <input type="text" onkeyup="lettersOnly(this)"  class="form-control" name="fname" required>
                                                     <br>
-                                                    <label>Name of Carwash</label>
-                                                    <input type="text" class="form-control" name="carName" required>
+                                                    <label>Lastname <span style='color:red'>*</span></label>
+                                                    <input type="text" onkeyup="lettersOnly(this)"  class="form-control" name="lname" required>
                                                     <br>
-                                                    <label>Complete Address</label>
-                                                    <input type="text" class="form-control" name="carAddress" required>
+                                                    <label>Contact Information <span style='color:red'>*</span></label>
+                                                    <input type="text" onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11" class="form-control" name="contact" required>
                                                     <br>
-                                                    <label>Contact Information</label>
-                                                    <input type="text" class="form-control" name="carContact" required>
+                                                    <label>Email <span style='color:red'>*</span> (Email must be active)</label>
+                                                    <input type="email" class="form-control" name="email" required>
                                                     <br>
-                                                    <label>Description</label>
-                                                    <textarea class="form-control" name="carDescription" id="" cols="30" rows="5" required></textarea>
+                                                    <label>Password <span style='color:red'>*</span></label>
+                                                    <input type="password" class="form-control" name="pass1" required>           
+                                                    <br>
+                                                    <label>Retype Password <span style='color:red'>*</span></label>
+                                                    <input type="password" class="form-control" name="pass2" required>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-success" style="color:white" name="add_carwash">Add</button>
+                                                    <button type="submit" class="btn btn-success" style="color:white" name="add_owner">Add</button>
                                                 </div>
                                             </form>
                                             </div>
@@ -274,7 +277,7 @@ if (!isset($_SESSION['email'])) {
                                                     <label for="">Lastname</label>
                                                     <input type="text" class="form-control" name="lname" value="<?php echo $row['lastname'] ?>">
                                                     <label for="">Contact No.</label>
-                                                    <input type="number" class="form-control" name="contact" value="<?php echo $row['contact'] ?>">
+                                                    <input type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11" name="contact" value="<?php echo $row['contact'] ?>">
                                                     <label for="">Email</label>
                                                     <input type="text" class="form-control" name="mail" value="<?php echo $row['email'] ?>">
                                                 </div>
@@ -382,7 +385,7 @@ if (!isset($_SESSION['email'])) {
                                                     <label for="">Lastname</label>
                                                     <input type="text" class="form-control" name="lname" value="<?php echo $row['lastname'] ?>">
                                                     <label for="">Contact No.</label>
-                                                    <input type="number" class="form-control" name="contact" value="<?php echo $row['contact'] ?>">
+                                                    <input type="text" class="form-control" onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11" name="contact" value="<?php echo $row['contact'] ?>">
                                                     <label for="">Email</label>
                                                     <input type="text" class="form-control" name="mail" value="<?php echo $row['email'] ?>">
                                                 </div>
@@ -435,6 +438,12 @@ if (!isset($_SESSION['email'])) {
     <script src="dist/js/sidebarmenu.js"></script>
     <script src="dist/js/custom.min.js"></script>
     <script src="dist/js/functions.js"></script>
+    <script>
+    function lettersOnly(input) {
+        var regex = /[^a-z ]/gi;
+        input.value = input.value.replace(regex, "");
+    }
+</script>
 </body>
 
 </html>
