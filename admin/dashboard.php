@@ -85,6 +85,13 @@ if (!isset($_SESSION['email'])) {
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="users.php"
+                                aria-expanded="false">
+                                <i class="mdi mdi-account"></i>
+                                <span class="hide-menu">Users</span>
+                            </a>
+                        </li>
+                        <!-- <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="booking.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-book"></i>
@@ -97,19 +104,12 @@ if (!isset($_SESSION['email'])) {
                                 <i class="mdi mdi-car"></i>
                                 <span class="hide-menu">Carwash</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="concern.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-message-reply-text"></i>
                                 <span class="hide-menu">Concerns</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="users.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-account"></i>
-                                <span class="hide-menu">Users</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -155,45 +155,45 @@ if (!isset($_SESSION['email'])) {
             <br><br>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body" style="background-color: rgba(255, 255, 0, 0.534);">
                                 <div class="text-center">
                                     <br>
                                     <img src="assets/images/alumni.png" width="100" alt="">
                                     <br><br>
-                                    <h2 class="card-title">Registered Users</h2>
+                                    <h2 class="card-title">Registered Customers</h2>
                                     <?php 
-                                        $sql = "SELECT * FROM user ";
+                                        $sql = "SELECT * FROM user WHERE account_type='Customer'";
                                         $result=mysqli_query($conn, $sql);
                                         $row = mysqli_num_rows($result);
                                     ?>
-                                    <p>Total Registered Users : <?php echo $row; ?></p>
+                                    <p>Total Registered Customers : <?php echo $row; ?></p>
                                 </div>
                             </div>
-                            <a href="users.php" class="btn btn-warning w-100" >View Registered Users</a>   
+                            <a href="users.php" class="btn btn-warning w-100" >View Registered Customers</a>   
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body" style="background-color: rgba(116, 212, 72, 0.534);">
                                 <div class="text-center">
                                     <br>
-                                    <img src="assets/images/notepad.png" width="85" alt="">
+                                    <img src="assets/images/alumni.png" width="100" alt="">
                                     <br><br>
-                                    <h2 class="card-title">Bookings</h2>
+                                    <h2 class="card-title">Registered Owners</h2>
                                     <?php 
-                                        $sql = "SELECT * FROM carwash ";
+                                        $sql = "SELECT * FROM user WHERE account_type='Owner' ";
                                         $result=mysqli_query($conn, $sql);
                                         $row = mysqli_num_rows($result);
                                     ?>
-                                    <p>Total Bookings : <?php echo $row; ?></p>
+                                    <p>Total Registered Owners : <?php echo $row; ?></p>
                                 </div>
                             </div>
-                            <a href="booking.php" class="btn btn-success w-100" style="color:white" >View Bookings</a>   
+                            <a href="users.php" class="btn btn-success w-100" style="color:white" >View Registered Owners</a>   
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <!-- <div class="col-lg-3">
                         <div class="card">
                             <div class="card-body" style="background-color: rgba(129, 191, 237, 0.534);">
                                 <div class="text-center">
@@ -212,8 +212,8 @@ if (!isset($_SESSION['email'])) {
                             </div>
                             <a href="carwash.php" class="btn btn-secondary w-100" style="color:white">View Added Carwash</a>   
                         </div>
-                    </div>
-                    <div class="col-lg-3">
+                    </div> -->
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body" style="background-color: #72FFDE;">
                                 <div class="text-center">

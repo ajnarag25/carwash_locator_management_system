@@ -85,6 +85,13 @@ if (!isset($_SESSION['email'])) {
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="users.php"
+                                aria-expanded="false">
+                                <i class="mdi mdi-account"></i>
+                                <span class="hide-menu">Users</span>
+                            </a>
+                        </li>
+                        <!-- <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="booking.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-book"></i>
@@ -97,19 +104,12 @@ if (!isset($_SESSION['email'])) {
                                 <i class="mdi mdi-car"></i>
                                 <span class="hide-menu">Carwash</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="concern.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-message-reply-text"></i>
                                 <span class="hide-menu">Concerns</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="users.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-account"></i>
-                                <span class="hide-menu">Users</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

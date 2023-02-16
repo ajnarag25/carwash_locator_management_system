@@ -91,6 +91,13 @@ if (!isset($_SESSION['email'])) {
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="users.php"
+                                aria-expanded="false">
+                                <i class="mdi mdi-account"></i>
+                                <span class="hide-menu">Users</span>
+                            </a>
+                        </li>
+                        <!-- <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="booking.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-book"></i>
@@ -103,19 +110,12 @@ if (!isset($_SESSION['email'])) {
                                 <i class="mdi mdi-car"></i>
                                 <span class="hide-menu">Carwash</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="concern.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-message-reply-text"></i>
                                 <span class="hide-menu">Concerns</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="users.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-account"></i>
-                                <span class="hide-menu">Users</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -164,10 +164,49 @@ if (!isset($_SESSION['email'])) {
             </div>
             <div class="container-fluid">
                 <div class="row">
+                    
                     <div class="col-12">
                         <div class="card card-body">
                             <div class="container-fluid">
                                 <div class="card-body overflow-auto">
+                                    <button class="btn btn-success" style="color:white" data-bs-toggle="modal" data-bs-target="#carwash">Add Owner Account<i class="mdi mdi-plus"></i></button>
+                                    <br><br>
+                                    <!-- Add Carwash Modal -->
+                                    <div class="modal fade" id="carwash" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3>Add Owner Account</h3>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="functions.php" method="POST"  enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <h5 class="modal-title">This is to add available carwash in the system</h5>
+                                                    <br>
+                                                    <label>Upload Image</label>
+                                                    <input type="file" class="form-control" name="carImage" accept="image/png, image/jpeg" required>
+                                                    <br>
+                                                    <label>Name of Carwash</label>
+                                                    <input type="text" class="form-control" name="carName" required>
+                                                    <br>
+                                                    <label>Complete Address</label>
+                                                    <input type="text" class="form-control" name="carAddress" required>
+                                                    <br>
+                                                    <label>Contact Information</label>
+                                                    <input type="text" class="form-control" name="carContact" required>
+                                                    <br>
+                                                    <label>Description</label>
+                                                    <textarea class="form-control" name="carDescription" id="" cols="30" rows="5" required></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success" style="color:white" name="add_carwash">Add</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3>List of Registered Owners</h3>
                                     <table class="table table-hover" id="studentTable">
                                         <thead class="thead-dark">
                                           <tr>
@@ -270,9 +309,119 @@ if (!isset($_SESSION['email'])) {
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-12">
+                        <div class="card card-body">
+                            <div class="container-fluid">
+                                <div class="card-body overflow-auto">
+                                    <h3>List of Registered Customers</h3>
+                                    <table class="table table-hover" id="studentTable">
+                                        <thead class="thead-dark">
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Firstname</th>
+                                            <th scope="col">Lastname</th>
+                                            <th scope="col">Contact no.</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Action</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <?php 
+                                            $query = "SELECT * FROM user WHERE account_type='Customer'";
+                                            $result = mysqli_query($conn, $query);
+                                            while ($row = mysqli_fetch_array($result)) {
+
+                                        ?>
+                                          <tr>
+                                            <th><?php echo $row['id']; ?></th>
+                                            <td><?php echo $row['firstname']; ?></td>
+                                            <td><?php echo $row['lastname']?></td>
+                                            <td><?php echo $row['contact']; ?></td>
+                                            <td><?php echo $row['email']; ?></td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" data-bs-placement="top" title="Edit Account Details" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id'] ?>"> <i class="mdi mdi-pencil"></i></button>
+                                                <button type="button" class="btn btn-danger" data-bs-placement="top" title="Delete User" style="color:white" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+
+                                         <!-- Modal Delete-->
+                                         <div class="modal fade" id="deleteModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete User <?php echo $row['firstname'] ?></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <h4>Are you sure you want to delete this user?</h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <a class="btn btn-danger" style="color:white" href="functions.php?deleteUser=<?php echo $row["id"] ?>">Delete</a>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        
+                                         <!-- Modal Edit -->
+                                         <div class="modal fade" id="editModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Details for User: <?php echo $row['firstname'] ?></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="functions.php" method="POST">
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                                                    <label for="">Firstname</label>
+                                                    <input type="text" class="form-control" name="fname" value="<?php echo $row['firstname'] ?>">
+                                                    <label for="">Lastname</label>
+                                                    <input type="text" class="form-control" name="lname" value="<?php echo $row['lastname'] ?>">
+                                                    <label for="">Contact No.</label>
+                                                    <input type="number" class="form-control" name="contact" value="<?php echo $row['contact'] ?>">
+                                                    <label for="">Email</label>
+                                                    <input type="text" class="form-control" name="mail" value="<?php echo $row['email'] ?>">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" name="updateUser">Save changes</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                      
+                                        <?php }; ?>
+
+                                      </table>
+                                      <br>
+                                      <?php 
+                                        $sql = "SELECT * FROM user ";
+                                        $result=mysqli_query($conn, $sql);
+                                        $row = mysqli_num_rows($result);
+                                    ?>
+                                    <p>Showing <?php echo $row; ?> entries </p>
+                                    
+                                    <div class="no-result-div mt-4 text-center" id="no-student">
+                                        <div class="div">
+                                            <img src="assets/images/search.svg" width="150" height="150" alt="">
+                                            <h4 class="mt-3">Search not found...</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
+            
             <footer class="footer text-center">
                 Carwash Locator Management System 
             </footer>
