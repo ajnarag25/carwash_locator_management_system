@@ -130,19 +130,22 @@ if (!isset($_SESSION['get_data']['email'])) {
                         <div class="card">
                             <div class="card-body">
                                 <center class="mt-4"> 
+                                    
                                     <?php 
-                                        $query = "SELECT * FROM user WHERE account_type='Admin' ";
+                                        $check_email = $_SESSION['get_data']['email'];
+                                        $query = "SELECT * FROM user WHERE account_type='Owner' AND email ='$check_email'; ";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
                                     ?>
                                     <img src="<?php echo $row['image']?>" class="rounded-circle" width="150" />
-                                    <?php }; ?>
-                                    <h4 class="card-title mt-2">Administrator</h4>
+                                    <h4 class="card-title mt-2">Carwash Owner</h4>
                                     <h6 class="card-subtitle">Carwash Locator Management System</h6>
                                     <form action="functions.php" enctype="multipart/form-data" method="POST">
                                         <input type="file" name="profile_pic" class="form-control" required>
+                                        <input type="hidden" value="<?php echo $row['id'] ?>" name="id_pic">
+                                    <?php }; ?>
                                         <br>
-                                        <button type="submit" class="btn btn-primary" name="change_profile">Change Profile Picture</button>
+                                        <button type="submit" class="btn btn-primary" name="change_profile_owner">Change Profile Picture</button>
                                     </form>
                                 </center>
                             </div>
@@ -150,21 +153,19 @@ if (!isset($_SESSION['get_data']['email'])) {
                                 <hr>
                             </div>
                             <div class="card-body"> <small class="text-muted">Email address </small>
+                            
                                 <?php 
-                                    $query = "SELECT * FROM user WHERE account_type='Admin' ";
+                                    $firstname = $_SESSION['get_data']['firstname'];
+                                    $lastmame = $_SESSION['get_data']['lastname']; 
+                                    $check_owner = $firstname .' '. $lastmame;
+                                    $check_email = $_SESSION['get_data']['email'];
+                                    $query = "SELECT * FROM system_carwash WHERE owner='$check_owner' AND email ='$check_email'; ";
                                     $result = mysqli_query($conn, $query);
                                     while ($row = mysqli_fetch_array($result)) {
                                 ?>
                                 <h6><?php echo $row['email'] ?></h6> <small class="text-muted pt-4 db">Phone</small>
-                                <h6>(+63) 9318066384</h6> <small class="text-muted pt-4 db">Address</small>
-                                <h6>RF72+5X2, Quezon Blvd, Bayambang, 2423 Pangasinan</h6>
-                                <br>
-                                <div class="map-box">
-                                    <iframe
-                                        src="assets/images/map.png"
-                                        width="100%" height="250" frameborder="0" style="border:0"
-                                        allowfullscreen></iframe>
-                                </div> 
+                                <h6>(+63) <?php echo $row['contact'] ?></h6> <small class="text-muted pt-4 db">Address</small>
+                                <h6><?php echo $row['barangay'] ?> <?php echo $row['municipality'] ?> <?php echo $row['province'] ?></h6>
                                <?php }; ?>
                             </div>
                         </div>
@@ -174,10 +175,12 @@ if (!isset($_SESSION['get_data']['email'])) {
                             <div class="card-body">
                                 <form class="form-horizontal form-material mx-2" action="functions.php" method="POST">
                                     <?php 
-                                        $query = "SELECT * FROM user WHERE account_type='Admin' ";
+                                        $check_email = $_SESSION['get_data']['email'];
+                                        $query = "SELECT * FROM user WHERE account_type='Owner' AND email ='$check_email'; ";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
                                     ?>
+                                    <input type="hidden" value="<?php echo $row['id'] ?>" name="id_owner">
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
@@ -218,7 +221,7 @@ if (!isset($_SESSION['get_data']['email'])) {
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="color:white">No</button>
-                                                        <button type="submit" class="btn btn-success" name="updateAdmin" style="color:white">Yes</button>
+                                                        <button type="submit" class="btn btn-success" name="updateOwner" style="color:white">Yes</button>
                                                     </div>
                                             </div>
                                             <?php }; ?>

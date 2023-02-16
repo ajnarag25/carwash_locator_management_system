@@ -497,7 +497,7 @@ if (isset($_POST['add_owner'])) {
     }else{
         if (!$result->num_rows > 0) {
             $conn->query("INSERT INTO user (image, account_type ,firstname, lastname, contact, email, password, otp) 
-                VALUES('../assets/default.png','Owner','$first','$last', '$contact', '$emails', '".password_hash($pass1, PASSWORD_DEFAULT)."', 0)") or die($conn->error);
+                VALUES('uploads/default.png','Owner','$first','$last', '$contact', '$emails', '".password_hash($pass1, PASSWORD_DEFAULT)."', 0)") or die($conn->error);
                 include 'send_email_verification.php';
                 ?>
                 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

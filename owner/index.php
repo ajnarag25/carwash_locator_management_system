@@ -17,6 +17,7 @@ if (!isset($_SESSION['get_data']['email'])) {
     <title>Carwash Locator Management System - Owner</title>
     <link href="assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="dist/css/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
 
 </head>
 
@@ -133,34 +134,23 @@ if (!isset($_SESSION['get_data']['email'])) {
             </div>
             <br><br>
             <div class="container-fluid">
-           
-                <div class="row">
-                    <div class="col-lg-4">
-                        <?php 
-                            $query = "SELECT * FROM system_carwash ";
-                            $result = mysqli_query($conn, $query);
-                            while ($row = mysqli_fetch_array($result)) {
-                        ?>
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
-                            <div class="single-card text-center mb-30">
-                                <div class="card-top">
-                                    <img src="./admin/<?php echo $row['image'] ?>" width="300" alt="">
-                                    <h4><?php echo $row['name'] ?></h4>
-                                </div>
-                                <div class="card-bottom">
-                                    <p><?php echo $row['description'] ?></p>
-                                    <a href="login.php" class="borders-btn">Check Details</a>
-                                </div>
-                            </div>
-                        </div>
+                <?php 
+                    $firstname = $_SESSION['get_data']['firstname'];
+                    $lastmame = $_SESSION['get_data']['lastname']; 
+                    $contact = $_SESSION['get_data']['contact']; 
+                    $email = $_SESSION['get_data']['email']; 
+                    $check_owner = $firstname .' '. $lastmame;
+                ?>
+                
+                <?php 
+                    $query = "SELECT * FROM system_carwash WHERE owner='$check_owner' AND email='$email'";
+                    $result = mysqli_query($conn, $query);
 
-                        <?php } ?>
-                    </div>
-                    <div class="col-lg-4">
-                        <?php 
-                            $firstname = $_SESSION['get_data']['firstname']; ;
-                            $lastmame = $_SESSION['get_data']['lastname']; 
-                        ?>
+                    if (!$result->num_rows > 0){
+
+                ?>
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="text-center">
                             <h3>Welcome, <?php echo $firstname. ' '. $lastmame; ?></h3>
                             <p>Owner's Account can only add one carwash per account.</p>
@@ -182,14 +172,36 @@ if (!isset($_SESSION['get_data']['email'])) {
                                         <label>Upload Image</label>
                                         <input type="file" class="form-control" name="carImage" accept="image/png, image/jpeg" required>
                                         <br>
+                                        <label>Owner</label>
+                                        <input type="text" class="form-control" name="carOwner" value="<?php echo $firstname.' '.$lastmame ?>" readonly>
+                                        <br>
+                                        <label>Contact Information</label>
+                                        <input type="text" class="form-control" name="carContact" value="<?php echo $contact ?>" readonly>
+                                        <br>
+                                        <label>Email</label>
+                                        <input type="text" class="form-control" name="carEmail" value="<?php echo $email ?>" readonly>
+                                        <br>
                                         <label>Name of Carwash</label>
                                         <input type="text" class="form-control" name="carName" required>
                                         <br>
-                                        <label>Complete Address</label>
-                                        <input type="text" class="form-control" name="carAddress" required>
+                                        <label>Branch Name</label>
+                                        <input type="text" class="form-control" name="carBranch" required>
                                         <br>
-                                        <label>Contact Information</label>
-                                        <input type="text" class="form-control" name="carContact" required>
+                                        <div class="row">
+                                            <h5>Address</h5>
+                                            <div class="col-md-4">
+                                                <label>Barangay</label>
+                                                <input type="text" class="form-control" name="carBarangay" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Municipality</label>
+                                                <input type="text" class="form-control" name="carMunicipality" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Province</label>
+                                                <input type="text" class="form-control" name="carProvince" required>
+                                            </div>
+                                        </div>
                                         <br>
                                         <label>Description</label>
                                         <textarea class="form-control" name="carDescription" id="" cols="30" rows="5" required></textarea>
@@ -205,7 +217,120 @@ if (!isset($_SESSION['get_data']['email'])) {
                     </div>
                 </div>
 
-    
+                <?php } 
+                
+                else {?>
+
+
+                <div class="col-lg-12">
+                
+                <?php 
+                    $query = "SELECT * FROM system_carwash WHERE owner='$check_owner' AND email='$email'";
+                    $result = mysqli_query($conn, $query);
+                    while ($row = mysqli_fetch_array($result)) {
+                ?>
+                
+                <div class="single-card mb-30">
+                <h3 class="text-center">Active Carwash:</h3>
+                <br>
+                    <div class="card-top text-center">
+                        <img src="<?php echo $row['image'] ?>" width="300" alt="">
+                        <br><br>
+                        <h4><?php echo $row['name'] ?></h4>
+                    </div>
+                    <div class="card-bottom text-center">
+                        <p><?php echo $row['description'] ?></p>
+                        <button class="form-control btn btn-danger w-25" style="color:white" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id'] ?>">Edit Carwash Details</button>
+                        <button class="form-control btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#addService<?php echo $row['id'] ?>">Add Services & Promos</button>
+                        <button class="form-control btn btn-secondary w-25" style="color:white">Add Branch</button>
+                    </div>
+                         <!-- Edit Modal -->
+                         <div class="modal fade" id="editModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3>Edit Carwash Details</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="functions.php" method="POST">
+                                    <div class="modal-body">
+                                        <label for="">Carwash</label>
+                                        <input class="form-control" type="text" name="carwash" value="<?php echo $row['name']; ?>">
+                                        <br>
+                                        <label for="">Contact</label>
+                                        <input class="form-control" type="text" name="contact" value="<?php echo $row['contact']; ?>">
+                                        <br>
+                                        <div class="row">
+                                            <h5>Address</h5>
+                                            <div class="col-md-4">
+                                                <label>Barangay</label>
+                                                <input type="text" class="form-control" name="barangay" value="<?php echo $row['barangay']; ?>" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Municipality</label>
+                                                <input type="text" class="form-control" name="municipality" value="<?php echo $row['municipality']; ?>" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Province</label>
+                                                <input type="text" class="form-control" name="province" value="<?php echo $row['province']; ?>" required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <label for="">Branch Name</label>
+                                        <input class="form-control" type="text" name="branch" value="<?php echo $row['branch']; ?>">
+                                        <br>
+                                        <label for="">Description</label>
+                                        <textarea class="form-control" name="description" value="<?php echo $row['description']; ?>" id="" cols="30" rows="5"><?php echo $row['description']; ?></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" value="<?php echo $row['id']; ?>" name="id_carwash">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger" style="color:white" name="update_carwash">Update</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <!-- Add Services Modal -->
+                       <div class="modal fade" id="addService<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3>Add Services & Promos</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="functions.php" method="POST">
+                                    <div class="modal-body">
+                                        <label for="">Current Services</label>
+                                        <textarea class="form-control" value="<?php echo $row['services']; ?>" id="" cols="10" rows="3" readonly><?php echo $row['services']; ?></textarea>
+                                        <label for="">Current Promos</label>
+                                        <textarea class="form-control" value="<?php echo $row['promo']; ?>" id="" cols="10" rows="3" readonly><?php echo $row['promo']; ?></textarea>
+                                        <br><br>
+                                        <label for="">Add Services</label>
+                                        <textarea class="form-control" name="services" id="" cols="10" rows="3" required></textarea>
+                                        <br>
+                                        <label for="">Add Promos</label>
+                                        <textarea class="form-control" name="promo" id="" cols="10" rows="3" required></textarea>
+                                       
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" value="<?php echo $row['email']; ?>" name="email_services">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" style="color:white" name="add_services">Add Services & Promo</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+               
+                <?php } ?>
+                </div>
+
+                <?php }?>
+                <br>
                 <h4 class="page-title">Bookings</h4>
                 <div class="col-lg-4" style="display: inline-flex;">
                     <input type="search" class="form-control rounded"  placeholder="Search" onkeyup="studentSearch()" id="searchStudent" />
@@ -216,6 +341,7 @@ if (!isset($_SESSION['get_data']['email'])) {
          
                 <div class="col-12">
                         <div class="card card-body">
+                            <button class="btn btn-success w-25" style="color:white" id="make_report" data-bs-toggle="tooltip" data-bs-placement="top" title="Make Report"><i class='bx bx-download' ></i> Make Report</button>
                             <div class="container-fluid">
                                 <div class="card-body overflow-auto">
                                     <table class="table table-hover" id="studentTable">
@@ -344,6 +470,19 @@ if (!isset($_SESSION['get_data']['email'])) {
     <script src="dist/js/sidebarmenu.js"></script>
     <script src="dist/js/custom.min.js"></script>
     <script src="dist/js/functions.js"></script>
+    <script>
+        // PRINT TABLE
+        function printData(){
+            var divToPrint=document.getElementById("studentTable");
+            newWin= window.open("");
+            newWin.document.write(divToPrint.outerHTML);
+            newWin.print();
+            newWin.close();
+        }
+        $('#make_report').on('click',function(){
+            printData();
+        })
+    </script>
 </body>
 
 </html>

@@ -207,7 +207,7 @@
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
                         <div class="single-card text-center mb-30">
                             <div class="card-top">
-                                <img src="./admin/<?php echo $row['image'] ?>" width="300" alt="">
+                                <img src="./owner/<?php echo $row['image'] ?>" width="300" alt="">
                                 <h4><?php echo $row['name'] ?></h4>
                             </div>
                             <div class="card-bottom">

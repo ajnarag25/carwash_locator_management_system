@@ -3,7 +3,7 @@
 <?php
 include('connection.php');
 session_start();
-error_reporting(0);
+// error_reporting(0);
 
 
 // login
@@ -47,7 +47,8 @@ if (isset($_POST['login_admin'])) {
 }
 
 // change profile pic
-if (isset($_POST['change_profile'])) {
+if (isset($_POST['change_profile_owner'])) {
+    $get_id_pic = $_POST['id_pic'];
     $target_dir = "uploads/";
     $target_file = $target_dir . basename($_FILES["profile_pic"]["name"]);
     $uploadOk = 1;
@@ -65,7 +66,7 @@ if (isset($_POST['change_profile'])) {
     } else {
       move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file);
     }
-        $sql='UPDATE user SET image="'.$target_file.'" WHERE account_type="Admin"';
+        $sql='UPDATE user SET image="'.$target_file.'" WHERE id="'.$get_id_pic.'"';
         $result = mysqli_query($conn, $sql);
         header('location: profile.php');
         
@@ -79,7 +80,8 @@ if (isset($_POST['change_profile'])) {
 }
 
 // update credentials
-if (isset($_POST['updateAdmin'])) {
+if (isset($_POST['updateOwner'])) {
+    $get_id_owner = $_POST['id_owner'];
     $emails = $_POST['mail'];
     $pass1 = $_POST['pass1'];
     $pass2 = $_POST['pass2'];
@@ -110,8 +112,8 @@ if (isset($_POST['updateAdmin'])) {
         </script>
         <?php
     }else{
-        $conn->query("UPDATE user SET password='".password_hash($pass1, PASSWORD_DEFAULT)."', email='$emails' WHERE account_type='Admin'") or die($conn->error);
-        header("Location: index.php");
+        $conn->query("UPDATE user SET password='".password_hash($pass1, PASSWORD_DEFAULT)."', email='$emails' WHERE id='".$get_id_owner."'") or die($conn->error);
+        header("Location: ../login.php");
     }
 
 }
@@ -164,10 +166,14 @@ if (isset($_GET['deleteBooking'])) {
 // add carwash
 if (isset($_POST['add_carwash'])){
     $names = $_POST['carName'];
-    $address = $_POST['carAddress'];
+    $owner = $_POST['carOwner'];
+    $email = $_POST['carEmail'];
+    $branch = $_POST['carBranch'];
+    $barangay = $_POST['carBarangay'];
+    $municipality = $_POST['carMunicipality'];
+    $province = $_POST['carProvince'];
     $contacts = $_POST['carContact'];
     $descriptions = $_POST['carDescription'];
-
     $target_dir = "uploads/";
     
     $target_file = $target_dir . time(). basename($_FILES["carImage"]["name"]);
@@ -175,7 +181,7 @@ if (isset($_POST['add_carwash'])){
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     $check = getimagesize($_FILES["carImage"]["tmp_name"]);
 
-    $sql = "SELECT * FROM system_carwash WHERE name='$names' AND address='$address' ";
+    $sql = "SELECT * FROM system_carwash WHERE name='$names' AND owner='$owner' ";
     $result = mysqli_query($conn, $sql);
 
     if (!$result->num_rows > 0){
@@ -194,9 +200,9 @@ if (isset($_POST['add_carwash'])){
                     confirmButtonText: 'Okay'
                     }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "carwash.php";
+                        window.location.href = "index.php";
                         }else{
-                            window.location.href = "carwash.php";
+                            window.location.href = "index.php";
                         }
                     })
                     
@@ -205,8 +211,8 @@ if (isset($_POST['add_carwash'])){
             </script>
             <?php
         }else{
-            $conn->query("INSERT INTO system_carwash (image, name, contact, address, description) 
-            VALUES('$target_file','$names','$contacts', '$address', '$descriptions')") or die($conn->error);
+            $conn->query("INSERT INTO system_carwash (image, owner, name, email, contact, barangay, municipality, province, branch, description, services, promo) 
+            VALUES('$target_file', '$owner','$names', '$email','$contacts', '$barangay', '$municipality', '$province', '$branch', '$descriptions', 'N/A', 'N/A')") or die($conn->error);
               ?>
               <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
               <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -219,9 +225,9 @@ if (isset($_POST['add_carwash'])){
                       confirmButtonText: 'Okay'
                       }).then((result) => {
                       if (result.isConfirmed) {
-                          window.location.href = "carwash.php";
+                          window.location.href = "index.php";
                           }else{
-                              window.location.href = "carwash.php";
+                              window.location.href = "index.php";
                           }
                       })
                       
@@ -243,9 +249,9 @@ if (isset($_POST['add_carwash'])){
                 confirmButtonText: 'Okay'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "carwash.php";
+                    window.location.href = "index.php";
                     }else{
-                        window.location.href = "carwash.php";
+                        window.location.href = "index.php";
                     }
                 })
                 
@@ -261,11 +267,14 @@ if (isset($_POST['update_carwash'])){
     $id = $_POST['id_carwash'];
     $car = $_POST['carwash'];
     $contact = $_POST['contact'];
-    $address = $_POST['address'];
+    $branch = $_POST['branch'];
+    $barangay = $_POST['barangay'];
+    $municipality = $_POST['municipality'];
+    $province = $_POST['province'];
     $desc = $_POST['description'];
 
     if ($id != null){
-        $conn->query("UPDATE system_carwash SET name='$car', contact='$contact', address='$address', description='$desc' WHERE id='$id'") or die($conn->error);
+        $conn->query("UPDATE system_carwash SET name='$car', contact='$contact', barangay='$barangay', municipality='$municipality', province='$province', branch='$branch', description='$desc' WHERE id='$id'") or die($conn->error);
         ?>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -278,9 +287,9 @@ if (isset($_POST['update_carwash'])){
                 confirmButtonText: 'Okay'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "carwash.php";
+                    window.location.href = "index.php";
                     }else{
-                        window.location.href = "carwash.php";
+                        window.location.href = "index.php";
                     }
                 })
                 
@@ -302,9 +311,9 @@ if (isset($_POST['update_carwash'])){
                 confirmButtonText: 'Okay'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "carwash.php";
+                    window.location.href = "index.php";
                     }else{
-                        window.location.href = "carwash.php";
+                        window.location.href = "index.php";
                     }
                 })
                 
@@ -549,6 +558,67 @@ if (isset($_POST['add_owner'])) {
         }
 
     }
+}
+
+
+// add services and promos
+if (isset($_POST['add_services'])) {
+    $get_email_services = $_POST['email_services'];
+    $service = $_POST['services'];
+    $promo = $_POST['promo'];
+
+    if ($get_email_services != null){
+        $conn->query("UPDATE system_carwash SET services='$service', promo='$promo' WHERE email='$get_email_services'") or die($conn->error);
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'success',
+                title: 'Successfully Added',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "index.php";
+                    }else{
+                        window.location.href = "index.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'error',
+                title: 'No available data',
+                text: 'Somthing went wrong',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "index.php";
+                    }else{
+                        window.location.href = "index.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }
+
+
+   
 }
 
 ?>
