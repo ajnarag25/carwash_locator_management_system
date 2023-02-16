@@ -140,9 +140,9 @@ if (isset($_POST['set_approval'])) {
                 confirmButtonText: 'Okay'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "booking.php";
+                    window.location.href = "index.php";
                     }else{
-                        window.location.href = "booking.php";
+                        window.location.href = "index.php";
                     }
                 })
                 
@@ -160,7 +160,7 @@ if (isset($_POST['set_approval'])) {
 if (isset($_GET['deleteBooking'])) {
     $id = $_GET['deleteBooking'];
     $conn->query("DELETE FROM carwash WHERE id=$id") or die($conn->error);
-    header("Location: booking.php");
+    header("Location: index.php");
 }
 
 // add carwash
@@ -213,6 +213,8 @@ if (isset($_POST['add_carwash'])){
         }else{
             $conn->query("INSERT INTO system_carwash (image, owner, name, email, contact, barangay, municipality, province, branch, description, services, promo) 
             VALUES('$target_file', '$owner','$names', '$email','$contacts', '$barangay', '$municipality', '$province', '$branch', '$descriptions', 'N/A', 'N/A')") or die($conn->error);
+            $conn->query("INSERT INTO branches (owner,branch,barangay, municipality, province) 
+            VALUES('$owner','$branch','$barangay', '$municipality', '$province')") or die($conn->error);
               ?>
               <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
               <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -617,8 +619,95 @@ if (isset($_POST['add_services'])) {
         <?php
     }
 
-
-   
 }
 
+// add branch
+if (isset($_POST['add_branch'])) {
+    $check_owner = $_POST['owner'];
+    $branch = $_POST['branch'];
+    $barangay = $_POST['barangay'];
+    $municipality = $_POST['municipality'];
+    $province = $_POST['province'];
+    
+    $sql = "SELECT * FROM branches WHERE owner='$check_owner' AND branch='$branch' ";
+    $result = mysqli_query($conn, $sql);
+    if (!$result->num_rows > 0){
+        if ($check_owner != null){
+            $conn->query("INSERT INTO branches (owner,branch,barangay, municipality, province) 
+            VALUES('$check_owner','$branch','$barangay', '$municipality', '$province')") or die($conn->error);
+            ?>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function(){
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Successfully Added',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Okay'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "index.php";
+                        }else{
+                            window.location.href = "index.php";
+                        }
+                    })
+                    
+                })
+        
+            </script>
+            <?php
+        }else{
+            ?>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function(){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'No available data',
+                    text: 'Somthing went wrong',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Okay'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "index.php";
+                        }else{
+                            window.location.href = "index.php";
+                        }
+                    })
+                    
+                })
+        
+            </script>
+            <?php
+        }
+    }else{
+        ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                Swal.fire({
+                icon: 'error',
+                title: 'Branch already existing',
+                text: 'Somthing went wrong',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "index.php";
+                    }else{
+                        window.location.href = "index.php";
+                    }
+                })
+                
+            })
+    
+        </script>
+        <?php
+    }
+   
+
+}
 ?>

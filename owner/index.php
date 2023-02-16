@@ -221,7 +221,6 @@ if (!isset($_SESSION['get_data']['email'])) {
                 
                 else {?>
 
-
                 <div class="col-lg-12">
                 
                 <?php 
@@ -237,12 +236,13 @@ if (!isset($_SESSION['get_data']['email'])) {
                         <img src="<?php echo $row['image'] ?>" width="300" alt="">
                         <br><br>
                         <h4><?php echo $row['name'] ?></h4>
+                        
                     </div>
                     <div class="card-bottom text-center">
                         <p><?php echo $row['description'] ?></p>
                         <button class="form-control btn btn-danger w-25" style="color:white" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id'] ?>">Edit Carwash Details</button>
                         <button class="form-control btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#addService<?php echo $row['id'] ?>">Add Services & Promos</button>
-                        <button class="form-control btn btn-secondary w-25" style="color:white">Add Branch</button>
+                        <button class="form-control btn btn-secondary w-25" data-bs-toggle="modal" data-bs-target="#addBranch<?php echo $row['id'] ?>" style="color:white">Add Branch</button>
                     </div>
                          <!-- Edit Modal -->
                          <div class="modal fade" id="editModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -324,6 +324,45 @@ if (!isset($_SESSION['get_data']['email'])) {
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Add Branches Modal -->
+                        <div class="modal fade" id="addBranch<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3>Add Branch</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="functions.php" method="POST">
+                                    <div class="modal-body">
+                                        <label for="">Branch Name</label>
+                                        <input class="form-control" type="text" name="branch" required>
+                                        <br>
+                                        <div class="row">
+                                            <h5>Address</h5>
+                                            <div class="col-md-4">
+                                                <label>Barangay</label>
+                                                <input type="text" class="form-control" name="barangay" value="<?php echo $row['barangay']; ?>" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Municipality</label>
+                                                <input type="text" class="form-control" name="municipality" value="<?php echo $row['municipality']; ?>" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Province</label>
+                                                <input type="text" class="form-control" name="province" value="<?php echo $row['province']; ?>" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" value="<?php echo $row['owner']; ?>" name="owner">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" style="color:white" name="add_branch">Add Branch</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
                 </div>
                
                 <?php } ?>
@@ -349,6 +388,7 @@ if (!isset($_SESSION['get_data']['email'])) {
                                           <tr>
                                             <th scope="col">No.</th>
                                             <th scope="col">Customer Name</th>
+                                            <th scope="col">Email</th>
                                             <th scope="col">Carwash</th>
                                             <th scope="col">Address</th>
                                             <th scope="col">Contact</th>
@@ -361,7 +401,10 @@ if (!isset($_SESSION['get_data']['email'])) {
                                         <tbody>
 
                                         <?php 
-                                            $query = "SELECT * FROM carwash ";
+                                            $firstname = $_SESSION['get_data']['firstname'];
+                                            $lastmame = $_SESSION['get_data']['lastname']; 
+                                            $check_owner = $firstname .' '. $lastmame;
+                                            $query = "SELECT * FROM carwash WHERE owner='$check_owner'";
                                             $result = mysqli_query($conn, $query);
                                             while ($row = mysqli_fetch_array($result)) {
 
@@ -369,6 +412,7 @@ if (!isset($_SESSION['get_data']['email'])) {
                                           <tr>
                                             <td><?php echo $row['id']; ?></td>
                                             <td><?php echo $row['person']; ?></td>
+                                            <td><?php echo $row['email']; ?></td>
                                             <td><?php echo $row['name']; ?></td>
                                             <td><?php echo $row['address']?></td>
                                             <td><?php echo $row['contact']; ?></td>

@@ -191,12 +191,15 @@
                                                 $result = mysqli_query($conn, $sql);
                                                 if (!$result->num_rows > 0) {
                                                     if (isset($_POST['addCarwash'])) {
+                                                        $owner = $_POST['carOwner']; 
                                                         $name = $_POST['carName']; 
                                                         $address = $_POST['carAddress'];
                                                         $contact = $_POST['carContact'];
                                                         $date = $_POST['carDate'];
                                                         $time = $_POST['carTime'];
                                                         echo"
+                                                        <h3>Carwash Owner: $owner</h3>
+                                                        <br>
                                                         <h3>Carwash: $name</h3>
                                                         <br>
                                                         <h3>Address: $address</h3>
@@ -240,6 +243,7 @@
                                             
                                             ?>
                                         <br>
+                                        <input type="hidden" value="<?php echo $owner ?>" name="carowner">
                                         <input type="hidden" value="<?php echo $name ?>" name="carname">
                                         <input type="hidden" value="<?php echo $address ?>" name="caraddress">
                                         <input type="hidden" value="<?php echo $contact ?>" name="carcontact">

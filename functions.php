@@ -3,7 +3,7 @@
 <?php 
 include('connection.php');
 session_start();
-error_reporting(0);
+// error_reporting(0);
 
 
 #LOGOUT
@@ -210,6 +210,7 @@ if (isset($_POST['signup'])) {
 
 #ADD CARWASH
 if (isset($_POST['bookCar'])) {
+    $cowner = $_POST['carowner'];
     $cperson = $_POST['carperson'];
     $cname = $_POST['carname'];
     $caddress = $_POST['caraddress'];
@@ -249,8 +250,8 @@ if (isset($_POST['bookCar'])) {
         <?php
     }else{
             if ($cemail != null){
-                $conn->query("INSERT INTO carwash (person, name, address, contact, email, date, time,status, note, date_submit) 
-                VALUES('$cperson','$cname','$caddress', '$ccontact', '$cemail', '$cdate', '$ctime','PENDING','NA', '$set_date')") or die($conn->error);
+                $conn->query("INSERT INTO carwash (owner ,person, name, address, contact, email, date, time,status, note, date_submit) 
+                VALUES('$cowner','$cperson','$cname','$caddress', '$ccontact', '$cemail', '$cdate', '$ctime','PENDING','NA', '$set_date')") or die($conn->error);
                 ?>
                 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

@@ -205,20 +205,20 @@
                                         $country = $query['country'];
                                         $city = $query['city'];
                                         $region = $query['regionName'];
-                                        $zip = $query['zip'];
-                                        $lat = $query['lat'];
-                                        $long = $query['lon'];
+                                        // $zip = $query['zip'];
+                                        // $lat = $query['lat'];
+                                        // $long = $query['lon'];
                                      }
                                     ?>
                                     <h3>Country: <?php echo $country ?></h3>
                                     <h3>City: <?php echo $city ?></h3>
                                     <h3>Region: <?php echo $region ?></h3>
-                                    <h3>Zip Code: <?php echo $zip ?></h3>
+                                    <!-- <h3>Zip Code: <?php echo $zip ?></h3>
                                     <h3>Latitude: <?php echo $lat ?></h3>
-                                    <h3>Longitude: <?php echo $long ?></h3>
+                                    <h3>Longitude: <?php echo $long ?></h3> -->
                                     <br>
-                                    <a href="https://www.google.com/maps/search/car+wash+near+me/" class="btn" target="_blank">View Carwash Near Me</a>
-                                    <a href="" class="btn" data-toggle="modal" data-target="#carwash">Add Carwash</a>
+                                    <a href="https://www.google.com/maps/search/car+wash+near+me/" class="btn w-100" target="_blank">View Carwash Near Me</a>
+                                    <!-- <a href="" class="btn" data-toggle="modal" data-target="#carwash">Add Carwash</a> -->
                                 </div>
                             </div>
                         </div>
@@ -227,7 +227,7 @@
             </div>
         </section>
         <!-- Modal Add Carwash-->
-        <div class="modal fade" id="carwash" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="carwash" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -239,6 +239,7 @@
                     <div class="modal-body">
                     <form class="form-contact contact_form" method="post" action="addcarwash.php">
                         <div class="row">
+                            <input class="form-control" name="carOwner" type="hidden" value="N/A">
                             <div class="col-12">
                                 <div class="form-group">
                                     <p>Please submit all the necessary informations needed <br> make sure you check the nearest carwash in your area.</p>
@@ -279,7 +280,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
         <section class="pricing-card-area fix section-padding30">
             <div class="container">
                 <div class="row justify-content-center">
@@ -290,6 +291,7 @@
                     </div>
                 </div>
                 <div class="row">
+
                     <?php 
                         $query = "SELECT * FROM system_carwash ";
                         $result = mysqli_query($conn, $query);
@@ -323,12 +325,16 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <p>Complete Address : <?php echo $row['address'] ?></p>
+                                                <p>Carwash Owner : <?php echo $row['owner'] ?></p>
+                                                <p>Complete Address : <?php echo $row['barangay'] ?> <?php echo $row['municipality'] ?> <?php echo $row['province'] ?></p>
                                                 <p>Contact : <?php echo $row['contact'] ?></p>
                                                 <p>Description : <?php echo $row['description'] ?></p>
+                                                <p>Branch : <?php echo $row['branch'] ?></p>
+                                                <p>Services : <?php echo $row['services'] ?></p>
+                                                <p>Promos : <?php echo $row['promo'] ?></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Select a preferred date <span style="color:red">*</span></label></label>
                                                 <input class="form-control valid" id="date_picker2" name="carDate" type="date"  required>
@@ -343,12 +349,13 @@
                                     </div>
                                 </div>
                                     <div class="modal-footer">
+                                        <input type="hidden" value="<?php echo $row['owner'] ?>" name="carOwner"> 
                                         <input type="hidden" value="<?php echo $row['name'] ?>" name="carName"> 
-                                        <input type="hidden" value="<?php echo $row['address'] ?>" name="carAddress"> 
+                                        <input type="hidden" value="<?php echo $row['barangay'] ?> <?php echo $row['municipality'] ?> <?php echo $row['province'] ?>" name="carAddress"> 
                                         <input type="hidden" value="<?php echo $row['contact'] ?>" name="carContact"> 
                                         <input type="hidden" value="">
                                         <button type="submit" class="btn btn-primary" name="addCarwash">Book Now</button>
-                                        <a href="https://www.google.com/maps/search/<?php echo $row['address'] ?>+car+wash" class="btn btn-primary" target="_blank" >Locate</a>
+                                        <a href="https://www.google.com/maps/search/<?php echo $row['barangay'] ?> <?php echo $row['municipality'] ?> <?php echo $row['province'] ?>+car+wash" class="btn btn-primary" target="_blank" >Locate</a>
                                         <button type="button" class="btn" data-dismiss="modal">Close</button>
                                     </div>
                                 </form>
