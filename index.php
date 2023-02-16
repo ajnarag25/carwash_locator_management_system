@@ -250,7 +250,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Contact no. <span style="color:red">*</span></label>
-                                    <input class="form-control valid" name="contact" id="contact_id"  type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Contact no.'" placeholder="Enter Contact no." required>
+                                    <input class="form-control valid" name="contact" id="contact_id" onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Contact no.'" placeholder="Enter Contact no." required>
                                 </div>
                             </div>
                             <div class="col-12">
