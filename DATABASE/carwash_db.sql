@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2023 at 05:01 PM
+-- Generation Time: Feb 17, 2023 at 12:51 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -36,6 +36,13 @@ CREATE TABLE `branches` (
   `province` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `branches`
+--
+
+INSERT INTO `branches` (`id`, `owner`, `branch`, `barangay`, `municipality`, `province`) VALUES
+(1, 'Avor John Narag', 'Branch 1', 'Liko', 'Dos Tres', 'Pangasinan');
+
 -- --------------------------------------------------------
 
 --
@@ -54,7 +61,8 @@ CREATE TABLE `carwash` (
   `time` varchar(100) NOT NULL,
   `status` varchar(100) NOT NULL,
   `note` text NOT NULL,
-  `date_submit` varchar(100) NOT NULL
+  `date_submit` varchar(100) NOT NULL,
+  `payment` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -161,7 +169,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `carwash`
@@ -185,7 +193,7 @@ ALTER TABLE `system_carwash`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
