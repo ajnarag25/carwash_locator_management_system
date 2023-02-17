@@ -195,6 +195,7 @@
                                                         $name = $_POST['carName']; 
                                                         $address = $_POST['carAddress'];
                                                         $contact = $_POST['carContact'];
+                                                        $services = $_POST['carServices'];
                                                         $date = $_POST['carDate'];
                                                         $time = $_POST['carTime'];
                                                         echo"
@@ -205,6 +206,8 @@
                                                         <h3>Address: $address</h3>
                                                         <br>
                                                         <h3>Contact: $contact</h3>
+                                                        <br>
+                                                        <h3>Services: $services</h3>
                                                         <br>
                                                         <h3>Date: $date</h3>
                                                         <br>
@@ -252,10 +255,34 @@
                                         <input type="hidden" value="<?php echo $_SESSION['get_data']['email'] ?>" name="caremail">
                                         <input type="hidden" value="<?php echo $_SESSION['get_data']['firstname'] ?> <?php echo $_SESSION['get_data']['lastname'] ?>" name="carperson">
                                         <a href="home.php" class="btn">Cancel</a>
-                                        <button type="submit" class="btn" name="bookCar">Book Now</submit>
-                                    </form>
+                                        <button type="button" class="btn" data-toggle="modal" data-target="#set_payment">Set Payment</submit>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal fade" id="set_payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title" id="exampleModalLabel">Set Payment</h1>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h3>Your payment will be recorded through in our system please set your payment and kindly wait for the validation of your request.</h3>
+                                <div class="form-group">
+                                    <label for="">Set Payment: <span style="color:red">*</span></label></label>
+                                    <input class="form-control" onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="5" name="carpayment" type="text"  required>
+                                </div>
+                            </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary" name="bookCar" >Book Now</button>
+                                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -353,6 +353,7 @@
                                         <input type="hidden" value="<?php echo $row['name'] ?>" name="carName"> 
                                         <input type="hidden" value="<?php echo $row['barangay'] ?> <?php echo $row['municipality'] ?> <?php echo $row['province'] ?>" name="carAddress"> 
                                         <input type="hidden" value="<?php echo $row['contact'] ?>" name="carContact"> 
+                                        <input type="hidden" value="<?php echo $row['services'] ?>" name="carServices"> 
                                         <input type="hidden" value="">
                                         <button type="submit" class="btn btn-primary" name="addCarwash">Book Now</button>
                                         <a href="https://www.google.com/maps/search/<?php echo $row['barangay'] ?> <?php echo $row['municipality'] ?> <?php echo $row['province'] ?>+car+wash" class="btn btn-primary" target="_blank" >Locate</a>

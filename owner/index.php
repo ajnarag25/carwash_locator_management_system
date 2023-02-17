@@ -395,6 +395,7 @@ if (!isset($_SESSION['get_data']['email'])) {
                                             <th scope="col">Date & Time</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Note</th>
+                                            <th scope="col">Payment</th>
                                             <th scope="col">Action</th>
                                           </tr>
                                         </thead>
@@ -419,8 +420,9 @@ if (!isset($_SESSION['get_data']['email'])) {
                                             <td><?php echo $row['date']; ?> / <?php echo $row['time']; ?></td>
                                             <td><?php echo $row['status']; ?></td>
                                             <td><?php echo $row['note']; ?></td>
+                                            <td>P<?php echo $row['payment']; ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-placement="top" title="Set Approval" data-bs-target="#editModal<?php echo $row['id'] ?>"> <i class="mdi mdi-pencil"></i></button>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-placement="top" title="Set Approval" data-bs-target="#approvalModal<?php echo $row['id'] ?>"> <i class="mdi mdi-pencil"></i></button>
                                                 <button type="button" class="btn btn-danger" style="color:white" data-bs-toggle="modal" data-bs-placement="top" title="Delete Request" data-bs-target="#deleteModal<?php echo $row['id'] ?>"> <i class="mdi mdi-delete"></i></button>
                                             </td>
                                           </tr>
@@ -446,7 +448,7 @@ if (!isset($_SESSION['get_data']['email'])) {
                                         </div>
                                         
                                          <!-- Approval Modal -->
-                                         <div class="modal fade" id="editModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                         <div class="modal fade" id="approvalModal<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 <div class="modal-header">

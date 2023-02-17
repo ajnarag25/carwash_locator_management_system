@@ -218,6 +218,7 @@ if (isset($_POST['bookCar'])) {
     $cemail = $_POST['caremail'];
     $cdate = $_POST['cardate'];
     $ctime = $_POST['cartime'];
+    $cpayment = $_POST['carpayment'];
     date_default_timezone_set('Asia/Manila');
     $set_date = date("Y-m-d");
 
@@ -250,8 +251,8 @@ if (isset($_POST['bookCar'])) {
         <?php
     }else{
             if ($cemail != null){
-                $conn->query("INSERT INTO carwash (owner ,person, name, address, contact, email, date, time,status, note, date_submit) 
-                VALUES('$cowner','$cperson','$cname','$caddress', '$ccontact', '$cemail', '$cdate', '$ctime','PENDING','NA', '$set_date')") or die($conn->error);
+                $conn->query("INSERT INTO carwash (owner ,person, name, address, contact, email, date, time,status, note, date_submit, payment) 
+                VALUES('$cowner','$cperson','$cname','$caddress', '$ccontact', '$cemail', '$cdate', '$ctime','PENDING','NA', '$set_date', '$cpayment')") or die($conn->error);
                 ?>
                 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
